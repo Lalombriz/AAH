@@ -79,9 +79,9 @@
 </div>
 
 <script>
-    $(document).ready(function){
-        $('.detalle_btn').click(function(){
-            $('#detail_p').modal('show');
-        });
-    });
+    // $(document).ready(function){
+    //     $('.detalle_btn').click(function(){
+    //         $('#detail_p').modal('show');
+    //     });
+    // });
 </script>

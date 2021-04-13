@@ -65,7 +65,7 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Opciones Doctores:</h6>
-                        <a class="collapse-item" href="#" data-toggle="modal" data-target="#Data_User">Registrar un Doctor</a>
+                        <a class="collapse-item" href="#" data-toggle="modal" data-target="#Doctores">Registrar un Doctor</a>
                         <a class="collapse-item" href="cards.php">Visualizar Doctores</a>
                         <a class="collapse-item" href="#">Pagos Doctores</a>
                     </div>
@@ -84,23 +84,23 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Opciones Pacientes:</h6>
                         <a class="collapse-item" href="#" data-toggle="modal" data-target="#Data_Paciente">Registrar un paciente</a>
-                        <a class="collapse-item" href="utilities-border.php">Borders</a>
-                        <a class="collapse-item" href="utilities-animation.php">Animations</a>
-                        <a class="collapse-item" href="utilities-other.php">Other</a>
+                        <a class="collapse-item" href="# ">Cancelar una cita</a>
+                        <!-- <a class="collapse-item" href="utilities-animation.php">Animations</a>
+                        <a class="collapse-item" href="utilities-other.php">Other</a> -->
                     </div>
                 </div>
             </li>
 
             <!-- Divider -->
-            <hr class="sidebar-divider">
+            <!-- <hr class="sidebar-divider"> -->
 
             <!-- Heading -->
-            <div class="sidebar-heading">
-                Addons
-            </div>
+            <!-- <div class="sidebar-heading">
+                Extras
+            </div> -->
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                     aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-folder"></i>
@@ -118,21 +118,21 @@
                         <a class="collapse-item" href="blank.php">Blank Page</a>
                     </div>
                 </div>
-            </li>
+            </li> -->
 
             <!-- Nav Item - Charts -->
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                 <a class="nav-link" href="charts.php">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Charts</span></a>
-            </li>
+            </li> -->
 
             <!-- Nav Item - Tables -->
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                 <a class="nav-link" href="tables.php">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Tablas</span></a>
-            </li>
+            </li> -->
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -336,87 +336,69 @@
 
 
 <!-- Registro de Doctor -->
-<div class="modal fade" id="Data_User" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-<div class="modal-dialog" role="document">
-    <div class="modal-content">
+<div class="modal fade" id="Doctores" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Datos del usuario</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Datos de ingreso del paciente</h5>
             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">×</span>
+                <span aria-hidden="true">x</span>
             </button>
         </div>
-        <div class="row">
-            <div style=" margin-left: 25px;" class="col-md-5" >
-                <label style="color: red;">Usuario</label>
-                <input type="text" class="form-control" id="usuario" name="usuario" required>
-                <br>
-            </div> 
+        <form action="index.php" method="POST">
+            <div class="row">   
+                <div style=" margin-left: 25px;" class="col-md-5">
+                    <label style="color: red;">Usuario</label>
+                    <input type="text" class="form-control" id="usuario" name="usuario" required>
+                    <br>
+                </div> 
+
+                <div style=" margin-left: 25px;" class="col-md-5">
+                    <label style="color: red;">Contraseña</label>
+                    <input type="password" class="form-control" id="contraseña" name="contraseña" required>
+                    <br>
+                </div> 
+
+
+                <div style=" margin-left: 25px;" class="col-md-5" >
+                    <label style="color: red;">Nombre Completo</label>
+                    <input type="text" class="form-control" id="nombre_doctor" name="nombre_doctor" required>
+                    <br>
+                </div> 
+
+
+                <div style=" margin-left: 25px;" class="col-md-5" >
+                    <label style="color: red;">Escuela de Estudios</label>
+                    <input type="text" class="form-control" id="escuela" name="escuela" required>
+                    <br>
+                </div>
             
 
-            <div style=" margin-left: 25px;" class="col-md-5">
-                <label style="color: red;">Contraseña</label>
-                <input type="password" class="form-control" id="contraseña" name="contraseña" required>
-                <br>
-            </div> 
-
-
-            <div style=" margin-left: 25px;" class="col-md-5" >
-                <label style="color: red;">Nombre Completo</label>
-                <input type="text" class="form-control" id="nombre_completo" name="nombre_completo" required>
-                <br>
-            </div> 
-
-
-            <div style=" margin-left: 25px;" class="col-md-5" >
-                <label style="color: red;">Nombre</label>
-                <input type="text" class="form-control" id="nombre" name="nombre" required>
-                <br>
-            </div>
-         
-
-            <div style=" margin-left: 25px;" class="col-md-5">
-                <label style="color: red;">Apellido Paterno</label>
-                <input type="text" class="form-control" id="apellido_p" name="apellido_p" required>
-                <br>
-            </div>
-           
-
-            <div style=" margin-left: 25px;" class="col-md-5" >
-                <label style="color: red;">Apellido Materno</label>
-                <input type="text" class="form-control" id="apellido_m" name="apellido_m" required>
-                <br>
-            </div>
+                <div style=" margin-left: 25px;" class="col-md-5">
+                    <label style="color: red;">Cedula Profesional</label>
+                    <input type="text" class="form-control" id="cedula" name="cedula" required>
+                    <br>
+                </div>
             
+                <div class="col-md-5" >
+                    <label style="margin-left: 25px;" for="usr">Procedencia</label>
+                        <select  type="text"name="tipo" id="tipo" style=" margin-left: 25px; display: block; background-color: #fff; background-clip: padding-box; border: 1px solid #d1d3e2; border-radius: .35rem; transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;">
+                            <option value="Enfermero">Enfermero</option>
+                            <option value="Medico">Medico</option>
+                            <option value="Anestesiologo">Anestesiologo</option>
+                        </select>
+                        <br>
+                </div>
 
-            <div class="col-md-5" >
-                <label style="margin-left: 25px;" for="usr">Tipo</label>
-                    <select style=" margin-left: 25px; display: block; background-color: #fff; background-clip: padding-box; border: 1px solid #d1d3e2; border-radius: .35rem; transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;" type="text" name="Tipo" id="Tipo">
-                    <option value="1">Enfermero</option>
-                    <option value="2">Medico</option>
-                    <option value="3">Anestesiologo</option>
-                    </select>
-            </div> 
-            <br>
-
-            <div style=" margin-left: 50px;" class="col-md-5" >
-                <label>Escuela de Estudios</label>
-                <input type="text" class="form-control" id="e_estudios" name="e_estudios" >
-                <br>
             </div>
-            
-
-            <div style=" margin-left: 25px;" class="col-md-5" >
-                <label>Cedula Profesional</label>
-                <input type="text" class="form-control" id="cedula" name="cedula" >
-            </div>  
-          </div>
-        <div class="modal-body" style="text-align: center;">Precionar Aceptar para dar de alta al usuario</div>
-        <div class="modal-footer">
-            <button class="btn btn-secondary" type="submit" data-dismiss="modal" style="background-color: seagreen;">Agregar</button>
-            
-        </div>
+            <div class="modal-body" style="text-align: center;">Precionar aceptar para ingresar al paciente</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" name="agregar" type="submit" style="background-color: seagreen;">Agregar</button>
+            </div>
+        </form>
+        <?php include_once "db/insertar_doctor.php"; ?>  <!-- incluye captura de datos a bd -->
     </div>
-</div>
+    </div>
 </div>
 
 <!-- Registro de Pacientes -->
@@ -429,7 +411,7 @@
                 <span aria-hidden="true">x</span>
             </button>
         </div>
-        <form name="alta" action="index.php" method="POST">
+        <form action="index.php" method="POST">
             <div class="row">   
                 <div style=" margin-left: 25px;" class="col-md-5">
                     <label style="color: red;">Fecha de ingreso</label>
@@ -490,7 +472,7 @@
 
                 <div class="col-md-5" >
                     <label style="margin-left: 25px;" for="usr">Procedencia</label>
-                        <select style=" margin-left: 25px; display: block; background-color: #fff; background-clip: padding-box; border: 1px solid #d1d3e2; border-radius: .35rem; transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;" type="text"name="proc" id="proc">
+                        <select  type="text"name="proc" id="proc" style=" margin-left: 25px; display: block; background-color: #fff; background-clip: padding-box; border: 1px solid #d1d3e2; border-radius: .35rem; transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;">
                             <option value="INSABI">INSABI</option>
                             <option value="IMSS">IMSS</option>
                             <option value="PRIVADO">PRIVADO</option>
@@ -500,7 +482,7 @@
                 
                 <div class="col-md-5" >
                     <label style="margin-left: 25px;" for="usr">Sexo</label>
-                        <select style=" margin-left: 25px; display: block; background-color: #fff; background-clip: padding-box; border: 1px solid #d1d3e2; border-radius: .35rem; transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;" type="text" name="sexo" id="sexo">
+                        <select  type="text" name="sexo" id="sexo" style=" margin-left: 25px; display: block; background-color: #fff; background-clip: padding-box; border: 1px solid #d1d3e2; border-radius: .35rem; transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;">
                             <option value="Femenino">Femenino</option>
                             <option value="Masculino">Masculino</option>
                             <option value="Otro">Otro</option>
@@ -568,7 +550,7 @@
                 <button class="btn btn-secondary" name="agregar" type="submit" style="background-color: seagreen;">Agregar</button>
             </div>
         </form>
-        <?php include_once "db/insertar_paciente.php"; ?>
+        <?php include_once "db/insertar_paciente.php"; ?>  <!-- incluye captura de datos a bd -->
     </div>
     </div>
 </div>

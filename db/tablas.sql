@@ -31,7 +31,7 @@ create table paciente
     anestesiologo VARCHAR(50) NOT NULL,
     diagnostico VARCHAR(255) NOT NULL,
     procedimiento VARCHAR(30) NOT NULL,
-    estado bool,
+    
     PRIMARY KEY (num_paciente),
     FOREIGN KEY (exp_procedencia) REFERENCES recepcion(exp_procedencia)
 );
