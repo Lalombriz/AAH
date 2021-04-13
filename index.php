@@ -56,7 +56,7 @@
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-hospital-user"></i>
@@ -70,21 +70,21 @@
                         <a class="collapse-item" href="#">Pagos Doctores</a>
                     </div>
                 </div>
-            </li>
+            </li> -->
 
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                     aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-fw fa-user"></i>
-                    <span>Pacientes</span>
+                    <span>Opciones</span>
                 </a>
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Opciones Pacientes:</h6>
                         <a class="collapse-item" href="#" data-toggle="modal" data-target="#Data_Paciente">Registrar un paciente</a>
-                        <a class="collapse-item" href="# ">Cancelar una cita</a>
+                        <a class="collapse-item" href="#" data-toggle="modal" data-target="#Usuarios">Crear Usuarios</a>
                         <!-- <a class="collapse-item" href="utilities-animation.php">Animations</a>
                         <a class="collapse-item" href="utilities-other.php">Other</a> -->
                     </div>
@@ -335,8 +335,8 @@
 </div>
 
 
-<!-- Registro de Doctor -->
-<div class="modal fade" id="Doctores" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Registro de Usuarios -->
+<div class="modal fade" id="Usuarios" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
         <div class="modal-header">
@@ -379,13 +379,20 @@
                     <input type="text" class="form-control" id="cedula" name="cedula" required>
                     <br>
                 </div>
+
+                <div style=" margin-left: 25px;" class="col-md-5">
+                    <label style="color: red;">Especialidad</label>
+                    <input type="text" class="form-control" id="esp" name="esp">
+                    <br>
+                </div>
             
                 <div class="col-md-5" >
-                    <label style="margin-left: 25px;" for="usr">Procedencia</label>
+                    <label style="margin-left: 25px;" for="usr">Tipo</label>
                         <select  type="text"name="tipo" id="tipo" style=" margin-left: 25px; display: block; background-color: #fff; background-clip: padding-box; border: 1px solid #d1d3e2; border-radius: .35rem; transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;">
                             <option value="Enfermero">Enfermero</option>
                             <option value="Medico">Medico</option>
                             <option value="Anestesiologo">Anestesiologo</option>
+                            <option value="Administrativo">Administrativo</option>
                         </select>
                         <br>
                 </div>
