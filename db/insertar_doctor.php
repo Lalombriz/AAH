@@ -14,8 +14,7 @@
         $estudios = $_POST['escuela'];
         $cedula = $_POST['cedula'];
        
-        if(isset($_POST['agregar']))
-        {
+        
             switch ($type) {
                 case "Medico":
                     $query = "INSERT INTO medicos (cedula_p, contrasena, estudios, nombre_completo, usuario) values( $cedula, $pass, $estudios, $name, $user)";
@@ -27,7 +26,7 @@
                     $query = "INSERT INTO anestesiologos (cedula_p, contrasena, estudios, nombre_completo, usuario) values( $cedula, $pass, $estudios, $name, $user)";
                     break;
             }
-         }
+         
         
     }
     $mysqli->close();
