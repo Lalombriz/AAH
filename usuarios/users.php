@@ -41,7 +41,7 @@ if($usuario === $getArrayUsuario['usuario'] &&  $password === $getArrayUsuario['
 
     }elseif($getArrayUsuario['tipo'] == "Administrativo"){
         $_SESSION['variable']=$getArrayUsuario['usuario'];
-        header("location:../index.php");
+        header("location:../administrativo.php");
        
         // echo "Menu de administrativos";
     }
