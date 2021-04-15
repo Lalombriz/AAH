@@ -618,7 +618,7 @@
                 <div class="modal-body">Selecciona salir si estas seguro de cerrar tu sesion...</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                    <a class="btn btn-primary" href="login.php">Salir</a>
+                    <a class="btn btn-primary" href="index.php">Salir</a>
                 </div>
             </div>
         </div>
