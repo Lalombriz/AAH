@@ -5,7 +5,7 @@
     $password ='';
     $db = 'hospital';           
     $mysqli = new mysqli($host,$user,$password,$db);
-
+    
     $consulta = "";
     $query =  "SELECT * FROM paciente 
                ORDER BY num_paciente

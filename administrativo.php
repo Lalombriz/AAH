@@ -50,7 +50,7 @@
 
             <!-- Divider -->
             <hr class="sidebar-divider">
-
+  
             <!-- Heading -->
             <div class="sidebar-heading">
                 Menu principal
@@ -168,7 +168,7 @@
                     </button>
 
                     <!-- BARRA BUSCADOR -->
-                    <form
+                    <form action="archivo" method="POST"
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
                             <input type="text" class="form-control bg-light border-0 small" placeholder="Buscar un paciente"
@@ -349,7 +349,7 @@
                 <span aria-hidden="true">x</span>
             </button>
         </div>
-        <form action="index.php" method="POST">
+        <form action="administrativo.php" method="POST">
             <div class="row">   
                 <div style=" margin-left: 25px;" class="col-md-5">
                     <label style="color: red;">Usuario</label>
@@ -422,7 +422,7 @@
                 <span aria-hidden="true">x</span>
             </button>
         </div>
-        <form action="index.php" method="POST">
+        <form action="administrativo.php" method="POST">
             <div class="row">   
                 <div style=" margin-left: 25px;" class="col-md-5">
                     <label style="color: red;">Fecha de ingreso</label>
