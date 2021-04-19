@@ -10,11 +10,20 @@
     $query =  "SELECT * FROM paciente 
                ORDER BY num_paciente
                LIMIT 10";
-
-    $buscar_paciente = $mysqli->query($query);
-    if (!$buscar_paciente) {
-        trigger_error('Invalid query: ' . $mysqli->error);
+    if(isset($_POST['btn_buscar']))
+    {
+        $q = $_POST['buscar'];
+        if(is_numeric($_POST['buscar']))
+        {
+            $q = $mysqli->real_escape_string($_POST['buscar']);
+            $query = "SELECT * FROM paciente WHERE num_paciente=".$q."";
+        }
+        else
+        {
+            $query = "SELECT * FROM paciente WHERE nombre_p like '%".$q."%'";
+        }
     }
+    $buscar_paciente = $mysqli->query($query);
     if($buscar_paciente -> num_rows > 0)
     {
         $consulta.="<table class='table table-bordered'>
@@ -52,36 +61,28 @@
             $consulta .= '<td class="acomp">' . $paciente['nombre_a'] . '</td>';
             $consulta .= '<td class="parentesco">' . $paciente['parentesco'] . '</td>';
             $consulta .= '<td class="tel_p">' . $paciente['telefono_p'] . '</td>';
-            $consulta .= '<td><button class="btn btn-primary border detalle_btn">Detalles</button></td>';
+            $consulta .= '<td>
+                            <li class="nav-item">
+                                <a class="nav-link collapsed" data-toggle="collapse" data-target="#opcion_p" aria-expanded="true" aria-controls="collapseUtilities">
+                                    <i class="fas fa-fw fa-chevron-circle-down"></i>
+                                </a>
+                                <div id="opcion_p" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                                    <div class="bg-white py-2 collapse-inner rounded">
+                                        <a class="collapse-item" href="db/eliminar_paciente.php?did='.$paciente['num_paciente'].'">Eliminar</a><br>
+                                        <a class="collapse-item" href="db/imprimir_paciente.php?did='.$paciente['num_paciente'].'" >Imprimir</a><br>
+                                        <a class="collapse-item" href="#" >Ver mas</a>
+                                    </div>
+                                </div>
+                            </li>
+                           </td>';
             $consulta .= '</tr>';
         }
         $consulta.="</tbody></table>";
     }
+    else
+    {
+        $consulta.= "<div class=\"w-100 p-3 text-center\"><h1 class=\"text-center text-danger\">No hay coincidencias</h1></div>"; 
+    }
     echo $consulta;
     $mysqli->close();
 ?>
-
-<div class="modal fade" id="detail_p"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">Detalles</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            </div>
-            <div class="modal-body">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                       <div id="results"></div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    // $(document).ready(function){
-    //     $('.detalle_btn').click(function(){
-    //         $('#detail_p').modal('show');
-    //     });
-    // });
-</script>
