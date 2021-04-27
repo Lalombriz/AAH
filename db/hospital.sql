@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-04-2021 a las 00:44:14
+-- Tiempo de generación: 27-04-2021 a las 03:03:30
 -- Versión del servidor: 10.4.17-MariaDB
--- Versión de PHP: 8.0.2
+-- Versión de PHP: 8.0.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -63,6 +63,107 @@ INSERT INTO `enfermeros` (`nombre_completo`, `cedula_p`, `estudios`, `usuario`, 
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `hoja_alta`
+--
+
+CREATE TABLE `hoja_alta` (
+  `nombre` varchar(300) NOT NULL,
+  `edad` varchar(300) NOT NULL,
+  `fecha_ingreso` date NOT NULL,
+  `fecha_alta` date NOT NULL,
+  `diagnostico_ingreso` varchar(300) NOT NULL,
+  `condicion_egreso` varchar(300) NOT NULL,
+  `resumen_hospitalizacion` varchar(300) NOT NULL,
+  `procedimiento_terapeutico_efectuado` varchar(300) NOT NULL,
+  `recomendaciones` varchar(1000) NOT NULL,
+  `no_hoja` int(11) NOT NULL,
+  `no_exp` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `hoja_consumo`
+--
+
+CREATE TABLE `hoja_consumo` (
+  `nombre` varchar(300) NOT NULL,
+  `diagnostico_preoperatorio` varchar(300) NOT NULL,
+  `medico_cirujano` varchar(300) NOT NULL,
+  `enfermera_quirurgica` varchar(300) NOT NULL,
+  `hora_ingreso` time NOT NULL,
+  `hora_inicio_cirugia` time NOT NULL,
+  `edad` varchar(300) NOT NULL,
+  `cirugia_practicada` varchar(300) NOT NULL,
+  `ayudante` varchar(300) NOT NULL,
+  `enfermera_circulante` varchar(300) NOT NULL,
+  `tipo_anestesia` varchar(300) NOT NULL,
+  `hora_termino_cirugia` varchar(300) NOT NULL,
+  `no_cama` varchar(300) NOT NULL,
+  `fecha` date NOT NULL,
+  `hora_egreso` time NOT NULL,
+  `quirofano` varchar(300) NOT NULL,
+  `no_hoja` int(11) NOT NULL,
+  `no_exp` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `hoja_indicaciones_seguridad`
+--
+
+CREATE TABLE `hoja_indicaciones_seguridad` (
+  `nombre` varchar(300) NOT NULL,
+  `procedimiento_quirurgico` varchar(300) NOT NULL,
+  `cirujano` varchar(300) NOT NULL,
+  `enfermera_circulante` varchar(300) NOT NULL,
+  `enfermera_quirurgica` varchar(300) NOT NULL,
+  `paciente_diabetico` varchar(300) NOT NULL,
+  `infecciones_previas` varchar(300) NOT NULL,
+  `aplicacion_antibiotico` varchar(300) NOT NULL,
+  `nombre_antibiotico` varchar(300) NOT NULL,
+  `antisepsia` varchar(300) NOT NULL,
+  `inicio_cirugia` time NOT NULL,
+  `fecha` date NOT NULL,
+  `edad` varchar(300) NOT NULL,
+  `sexo` varchar(300) NOT NULL,
+  `hora_aplicacion_antibiotico` time NOT NULL,
+  `hora_antisepsia` time NOT NULL,
+  `termina_cirugia` time NOT NULL,
+  `no_hoja` int(11) NOT NULL,
+  `no_exp` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `hoja_medica_postoperatoria`
+--
+
+CREATE TABLE `hoja_medica_postoperatoria` (
+  `fecha` date NOT NULL,
+  `no_exp` int(30) NOT NULL,
+  `paciente` varchar(300) NOT NULL,
+  `edad` varchar(300) NOT NULL,
+  `sexo` varchar(300) NOT NULL,
+  `diagnostico_preoperatorio` varchar(300) NOT NULL,
+  `diagnostico_postoperatorio` varchar(300) NOT NULL,
+  `cirujano` varchar(300) NOT NULL,
+  `descripcion_cirugia` varchar(1000) NOT NULL,
+  `QX` varchar(300) NOT NULL,
+  `anestesiologo` varchar(300) NOT NULL,
+  `tipo_anestesia` varchar(300) NOT NULL,
+  `ayudante1` varchar(300) NOT NULL,
+  `instrumentista` varchar(300) NOT NULL,
+  `circulante` varchar(300) NOT NULL,
+  `comentarios` varchar(300) NOT NULL,
+  `no_hoja` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `medicos`
 --
 
@@ -72,6 +173,173 @@ CREATE TABLE `medicos` (
   `estudios` varchar(100) NOT NULL,
   `usuario` varchar(20) NOT NULL,
   `contrasena` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `nota_enfermeria_transoperatorio`
+--
+
+CREATE TABLE `nota_enfermeria_transoperatorio` (
+  `reporte_enfermeria` varchar(600) NOT NULL,
+  `medicamentos` varchar(300) NOT NULL,
+  `soluciones` varchar(300) NOT NULL,
+  `diuresis` varchar(300) NOT NULL,
+  `sangrado` varchar(300) NOT NULL,
+  `gasas` varchar(300) NOT NULL,
+  `compresas` varchar(300) NOT NULL,
+  `otros` varchar(300) NOT NULL,
+  `no_nota` int(30) NOT NULL,
+  `no_exp` int(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `nota_indicaciones_medicas`
+--
+
+CREATE TABLE `nota_indicaciones_medicas` (
+  `nombre` varchar(300) NOT NULL,
+  `no_exp` int(30) NOT NULL,
+  `edad` varchar(300) NOT NULL,
+  `servicio` varchar(300) NOT NULL,
+  `cama` varchar(300) NOT NULL,
+  `fecha` datetime NOT NULL,
+  `indicaciones` varchar(600) NOT NULL,
+  `sexo` varchar(300) NOT NULL,
+  `no_indicacion` int(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `nota_preoperatoria`
+--
+
+CREATE TABLE `nota_preoperatoria` (
+  `fecha` date NOT NULL,
+  `hora` time NOT NULL,
+  `nombre` varchar(300) NOT NULL,
+  `diagnostico` varchar(300) NOT NULL,
+  `plan_terapeutico` varchar(600) NOT NULL,
+  `pronostico` varchar(600) NOT NULL,
+  `cirugia_programada` int(11) NOT NULL,
+  `no_nota` int(30) NOT NULL,
+  `no_exp` int(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `nota_preparacion`
+--
+
+CREATE TABLE `nota_preparacion` (
+  `temp` varchar(10) NOT NULL,
+  `fc` varchar(10) NOT NULL,
+  `fr` varchar(10) NOT NULL,
+  `t/a` varchar(10) NOT NULL,
+  `dxtx` varchar(10) NOT NULL,
+  `solucion` varchar(300) NOT NULL,
+  `ayuno` varchar(10) NOT NULL,
+  `cx` varchar(10) NOT NULL,
+  `alergias` varchar(300) NOT NULL,
+  `toxico` varchar(300) NOT NULL,
+  `transf` varchar(300) NOT NULL,
+  `enfermedad_cronica` varchar(300) NOT NULL,
+  `protesis` varchar(300) NOT NULL,
+  `medicamento` varchar(300) NOT NULL,
+  `no_nota` int(30) NOT NULL,
+  `no_exp` int(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `nota_quirofano`
+--
+
+CREATE TABLE `nota_quirofano` (
+  `cirujano` varchar(300) NOT NULL,
+  `anestesiologo` varchar(300) NOT NULL,
+  `diagnostico` varchar(300) NOT NULL,
+  `enfermera_qca` varchar(300) NOT NULL,
+  `hora_ingreso` time NOT NULL,
+  `inicio` datetime NOT NULL,
+  `termina` datetime NOT NULL,
+  `egresa` datetime NOT NULL,
+  `ayudante` varchar(300) NOT NULL,
+  `tipo_anestesia` varchar(300) NOT NULL,
+  `cx_realizada` varchar(300) NOT NULL,
+  `circulante` varchar(300) NOT NULL,
+  `no_nota` int(30) NOT NULL,
+  `no_exp` int(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `nota_recuperacion`
+--
+
+CREATE TABLE `nota_recuperacion` (
+  `hora` time NOT NULL,
+  `ta` varchar(300) NOT NULL,
+  `fr` varchar(300) NOT NULL,
+  `fc` varchar(300) NOT NULL,
+  `T` varchar(300) NOT NULL,
+  `SAT,02` varchar(300) NOT NULL,
+  `medicamentos` varchar(300) NOT NULL,
+  `reporte_recuperacion` varchar(600) NOT NULL,
+  `sangrado` varchar(300) NOT NULL,
+  `diuresis` varchar(300) NOT NULL,
+  `emesis` varchar(300) NOT NULL,
+  `no_exp` int(30) NOT NULL,
+  `no_nota` int(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `nota_recuperacion_inmediata`
+--
+
+CREATE TABLE `nota_recuperacion_inmediata` (
+  `hora` time NOT NULL,
+  `t/a` varchar(300) NOT NULL,
+  `fr` varchar(300) NOT NULL,
+  `fc` varchar(300) NOT NULL,
+  `T` varchar(300) NOT NULL,
+  `SAT,02` varchar(300) NOT NULL,
+  `medicamentos` varchar(300) NOT NULL,
+  `reporte_enfermeria` varchar(600) NOT NULL,
+  `sangrado` varchar(300) NOT NULL,
+  `diuresis` varchar(300) NOT NULL,
+  `emesis` varchar(300) NOT NULL,
+  `no_nota` int(30) NOT NULL,
+  `no_exp` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `nota_traslado`
+--
+
+CREATE TABLE `nota_traslado` (
+  `fecha` date NOT NULL,
+  `hora` time NOT NULL,
+  `procedimiento_programado` varchar(600) NOT NULL,
+  `nombre_paciente` varchar(300) NOT NULL,
+  `sexo` varchar(300) NOT NULL,
+  `edad` varchar(300) NOT NULL,
+  `unidad_receptora` varchar(300) NOT NULL,
+  `unidad_envia` varchar(300) NOT NULL,
+  `resumen_clinico` varchar(300) NOT NULL,
+  `no_traslado` int(11) NOT NULL,
+  `no_exp` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -109,7 +377,8 @@ CREATE TABLE `paciente` (
 --
 
 INSERT INTO `paciente` (`num_paciente`, `exp_procedencia`, `nombre_p`, `fecha_nacimiento`, `direccion_p`, `telefono_p`, `poblacion`, `estado`, `edad`, `sexo`, `procedencia`, `num_afiliacion`, `nombre_a`, `parentesco`, `telefono_a`, `direccion_a`, `medico_esp`, `especialidad`, `anestesiologo`, `diagnostico`, `procedimiento`) VALUES
-(10, 10, 'Eduardo Marcelo Gutierrez Soto', '2021-04-05', 'Chicomostoc 891, colonia aztlan, Rosarityo baja california', '661-110-411', 'Rosarito', 'Baja California', 25, 'Masculino', 'PRIVADO', 1234657, 'Guillermo Eugenio Gutierrez Soto', 'Hernamo', '664-336-323', 'Chicomostoc 891, Aztlan Rosarito Baja California', 'Altamirano Gonzalez', 'Cirujano', 'Gutierrez Gonzalez', 'operacion', 'Riñon');
+(10, 10, 'Eduardo Marcelo Gutierrez Soto', '2021-04-05', 'Chicomostoc 891, colonia aztlan, Rosarityo baja california', '661-110-411', 'Rosarito', 'Baja California', 25, 'Masculino', 'PRIVADO', 1234657, 'Guillermo Eugenio Gutierrez Soto', 'Hernamo', '664-336-323', 'Chicomostoc 891, Aztlan Rosarito Baja California', 'Altamirano Gonzalez', 'Cirujano', 'Gutierrez Gonzalez', 'operacion', 'Riñon'),
+(11, 11, 'Feng', '2021-04-12', 'sadfsfd', '12232343', 'sdfsdf', 'sfsf', 12, 'Femenino', 'INSABI', 123456, 'adass', 'sdadfghg', '123456', 'gfhgffg', '12345', 'csfsdds', 'safsdfsd', 'sadfsdfsd', 'asfsdgfg');
 
 -- --------------------------------------------------------
 
@@ -127,7 +396,8 @@ CREATE TABLE `recepcion` (
 --
 
 INSERT INTO `recepcion` (`exp_procedencia`, `fecha`) VALUES
-(10, '2021-04-13');
+(10, '2021-04-13'),
+(11, '2021-04-16');
 
 --
 -- Disparadores `recepcion`
@@ -155,6 +425,14 @@ CREATE TABLE `usuarios` (
   `cedula` int(15) NOT NULL,
   `ID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`usuario`, `contrasena`, `nombre_completo`, `escuela_estudios`, `especialidad`, `tipo`, `cedula`, `ID`) VALUES
+('hong', '81dc9bdb52d04dc20036dbd8313ed055', 'Haolin', 'UABC', 'INGENIERO', 'Administrativo', 1234567, 2),
+('enola', '81dc9bdb52d04dc20036dbd8313ed055', 'Enola Carely', 'uabc', 'Ingeniera', 'Enfermero', 999999, 6);
 
 --
 -- Índices para tablas volcadas
@@ -187,19 +465,19 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `paciente`
 --
 ALTER TABLE `paciente`
-  MODIFY `num_paciente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `num_paciente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `recepcion`
 --
 ALTER TABLE `recepcion`
-  MODIFY `exp_procedencia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `exp_procedencia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Restricciones para tablas volcadas
