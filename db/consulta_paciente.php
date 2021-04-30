@@ -5,7 +5,7 @@
     $password ='';
     $db = 'hospital';           
     $mysqli = new mysqli($host,$user,$password,$db);
-    
+    $accion_id='accion';
     $consulta = "";
     $query =  "SELECT * FROM paciente 
                ORDER BY num_paciente
@@ -20,7 +20,7 @@
         }
         else
         {
-            $query = "SELECT * FROM paciente WHERE nombre_p like '%".$q."%'";
+            $query = "SELECT * FROM paciente WHERE nombre_p like '%".$q."%' OR procedencia like '%".$q."%'";
         }
     }
     $buscar_paciente = $mysqli->query($query);
@@ -42,11 +42,13 @@
                                         <th>Acompañante</th>
                                         <th>Parentesco</th>
                                         <th>Telefono</th>
+                                        <th>Accion</th>
                                     </tr>
                                 </thead>
                             <tbody>";
         while($paciente = $buscar_paciente->fetch_assoc())
         {
+            $accion_id .= strval($paciente['num_paciente']);
             $consulta .= '<tr class="trID_' .$paciente['num_paciente']. '">';
             $consulta .= '<td class="numero">' . $paciente['num_paciente'] . '</td>';
             $consulta .= '<td class="td_nombre">' . $paciente['nombre_p'] . '</td>';
@@ -63,12 +65,12 @@
             $consulta .= '<td class="tel_p">' . $paciente['telefono_p'] . '</td>';
             $consulta .= '<td>
                             <li class="nav-item">
-                                <a class="nav-link collapsed" data-toggle="collapse" data-target="#opcion_p" aria-expanded="true" aria-controls="collapseUtilities">
+                                <a class="nav-link collapsed" data-toggle="collapse" data-target="#'.$accion_id.'" aria-expanded="true" aria-controls="collapseUtilities">
                                     <i class="fas fa-fw fa-chevron-circle-down"></i>
                                 </a>
-                                <div id="opcion_p" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                                <div id="'.$accion_id.'" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                                     <div class="bg-white py-2 collapse-inner rounded">
-                                        <a class="collapse-item" href="db/eliminar_paciente.php?did='.$paciente['num_paciente'].'">Eliminar</a><br>
+                                        <a class="collapse-item" href="db/eliminar_paciente.php?did='.$paciente['num_paciente'].'">Cancelar</a><br>
                                         <a class="collapse-item" href="db/imprimir_paciente.php?did='.$paciente['num_paciente'].'" >Imprimir</a><br>
                                         <a class="collapse-item" href="#" >Ver mas</a>
                                     </div>
