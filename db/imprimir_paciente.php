@@ -73,13 +73,13 @@ $html='
         <h6>NOMBRE DEL MEDICO QUE REALIZO EL PROCEDIMIENTO:</h6>
         <h6>PROCEDIMIENTO REALIZADO AL PACIENTE:</h6>
         <h6>NOMBRE Y FIRMA DEL PACIENTE O FAMILIAR________________________________________________________</h6><br>
-        <h6>
+        <h5>
             <input type="checkbox" name="a" value="a">MEJORIA
             <input type="checkbox" name="b" value="b">CURACION
             <input type="checkbox" name="c" value="c">VOLUNTARIA
             <input type="checkbox" name="d" value="d">A DOMICILIO
             <input type="checkbox" name="e" value="e">A OTRO HOSPITAL
-        </h6><br>
+        </h5><br>
         <h6>NOMBRE MEDICO QUE AUTORIZA ALTA DEL PACIENTE</h6>
         <h6>FIRMA DEL MEDICO:________________________________________________________</h6>
         <h6>HORA:________________________________________________________</h6>
@@ -87,7 +87,6 @@ $html='
         <h6>PARENTESCO:</h6>
         <h6>FIRMA:________________________________________________________</h6>
         <h6>OBSERVACIONES:_______________________________________________________________________________________________________________________________________________________________________________________</h6>
-        
     ';
 $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
 //Aviso de privacidad

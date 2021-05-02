@@ -56,9 +56,9 @@
                                 </a>
                                 <div id="'.$accion_id.'" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                                     <div class="bg-white py-2 collapse-inner rounded">
-                                        <a class="collapse-item" id="detalle" href="#" data-dismiss="modal">Ver mas</a>
+                                        <a class="collapse-item" href="#" >Ver mas</a>
                                         <a class="collapse-item" href="db/imprimir_paciente.php?did='.$paciente['num_paciente'].'" >Imprimir</a><br>
-                                        <a class="collapse-item" id="cancelacion" href="#" data-dismiss="modal">Cancelar</a><br>
+                                        <a class="collapse-item" href="db/eliminar_paciente.php?did='.$paciente['num_paciente'].'">Cancelar</a><br>
                                     </div>
                                 </div>
                             </li>
@@ -74,4 +74,3 @@
     echo $consulta;
     $mysqli->close();
 ?>
-
