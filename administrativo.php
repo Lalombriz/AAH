@@ -202,49 +202,6 @@
                                 <?php include_once "db/consulta_paciente.php"; ?>
                             </div>
                         </div>
-                        <div class="modal fade" id="details"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                            <div class="modal-dialog modal-lg" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h4 class="modal-title text-left" id="myModalLabel">Datos del paciente</h4>
-                                        <button type="button" class="close text-right" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form id="datos_p" action="administrativo.php" method="POST" class="form">
-                                            <div class="form-group">
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
-                                        <div id="results"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal fade" id="cancel"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                            <div class="modal-dialog modal-lg" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h4 class="modal-title text-left" id="myModalLabel">Cancelacion</h4>
-                                        <button type="button" class="close text-right" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form id="cancelar_cita" action="administrativo.php" method="POST" class="form">
-                                            <div class="form-group">
-                                                <label for="razon">Descripcion</label>
-                                                <textarea class="form-control" name="razon" id="razon" maxlength="100" required style="resize: none; width: 720px;height: 150px;"></textarea>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
-                                        <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
-                                        <div id="results"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                         
                 <!-- /.container-fluid -->
@@ -558,7 +515,7 @@
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
-    
+     
 </body>
 
 </html>

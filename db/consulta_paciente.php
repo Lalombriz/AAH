@@ -56,7 +56,7 @@
                                 </a>
                                 <div id="'.$accion_id.'" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                                     <div class="bg-white py-2 collapse-inner rounded">
-                                        <a class="collapse-item" id="detalle" href="#" data-dismiss="modal">Ver mas</a>
+                                        <a class="collapse-item detalle_pac" href="#" id="'.$paciente['num_paciente'].'" data-dismiss="modal">Ver mas</a>
                                         <a class="collapse-item" href="db/imprimir_paciente.php?did='.$paciente['num_paciente'].'" >Imprimir</a><br>
                                         <a class="collapse-item" id="cancelacion" href="#" data-dismiss="modal">Cancelar</a><br>
                                     </div>
@@ -75,3 +75,42 @@
     $mysqli->close();
 ?>
 
+<div class="modal fade" id="details"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-left" id="myModalLabel">Datos del paciente</h4>
+                <button type="button" class="close text-right" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body" id="detalle_p">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                <div id="results"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="cancel"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-left" id="myModalLabel">Cancelacion</h4>
+                <button type="button" class="close text-right" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <form id="cancelar_cita" action="administrativo.php" method="POST" class="form">
+                    <div class="form-group">
+                        <label for="razon">Descripcion</label>
+                        <textarea class="form-control" name="razon" id="razon" maxlength="100" required style="resize: none; width: 720px;height: 150px;"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                <div id="results"></div>
+            </div>
+        </div>
+    </div>
+</div>

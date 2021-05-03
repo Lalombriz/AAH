@@ -10,7 +10,7 @@ $(document).ready(function() {
                 "zeroRecords": "No se encontraron resultados",
                 "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
                 "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-                "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "infoFiltered": "(Filtrado de un total de _MAX_ registros)",
                 "sSearch": "Buscar:",
                 "oPaginate": {
                     "sFirst": "Primero",
@@ -24,8 +24,24 @@ $(document).ready(function() {
 });
 
 $(document).ready(function(){
-    $('#detalle').click(function(){
-        $('#details').modal('show');
+    $(document).on('click','.detalle_pac',function(){
+        var num_paciente = $(this).attr("id");
+        if(num_paciente !='')
+        {
+            $.ajax({
+                url:"../AAH/db/detalle_paciente.php",
+                method:"POST",
+                data:{num_paciente:num_paciente},
+                success:function(data){
+                    $('#detalle_p').html(data);
+                    $('#details').modal('show');
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                    alert("Status: " + textStatus); 
+                    alert("Error: " + errorThrown); 
+                }
+            })
+        }
     });
 });//END document.ready
 
