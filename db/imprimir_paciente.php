@@ -1,5 +1,4 @@
 <?php
-
 $host= 'localhost';
 $user= 'root';      
 $password ='';
@@ -13,7 +12,8 @@ $data = $mysqli->query($query);
 $paciente = $data->fetch_assoc();
 
 $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-
+// set title
+$pdf->SetTitle(''.$paciente['nombre_p'].'');
 // set default header data
 $pdf->SetHeaderData(PDF_HEADER_LOGO, '45');
 
@@ -47,7 +47,7 @@ $pdf->SetFont('aefurat', '', 14, '',true);
 // -----------------------Contenidos------------------------
 //Datos del paciente
 $pdf->AddPage();
-$pdf->Image('../img/Logos/logo3.png', 20, 3, 30, 17, 'png', '', '', false, 150, 'R', false, false, 1, false, false, false);
+$pdf->Image('../img/Logos/logo3.jpg', 20, 3, 30, 16, 'jpg', '', '', false, 150, 'R', false, false, 0, false, false, false);
 $html='
         <p align="right">Fecha: '.date("d-m-Y").'</p>
         <h4>Nombre del paciente: <u>'.$paciente['nombre_p'].'</u></h4><br>
@@ -91,7 +91,7 @@ $html='
 $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
 //Aviso de privacidad
 $pdf->AddPage();
-$pdf->Image('../img/Logos/logo3.png', 20, 3, 30, 17, 'png', '', '', false, 150, 'R', false, false, 1, false, false, false);
+$pdf->Image('../img/Logos/logo3.jpg', 20, 3, 30, 16, 'jpg', '', '', false, 150, 'R', false, false, 0, false, false, false);
 $html='
         <p align="center"><b><h3>AVISO DE PRIVACIDAD DE DATOS PERSONALES</h3></b></p>
         <p align="left"><h5>LOS DATOS PERSONALES QUE NOS PROPORCIONE SERÁN PROTEGIDOS POR LA LEY DE TRANSPARENCIA Y ACCESO A LA INFORMACIÓN PÚBLICA PARA EL ESTADO DE BAJA CALIFORNIA, 
@@ -114,7 +114,7 @@ $html='
 $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
 //Consentimiento informado para la aplicacion de anestesia
 $pdf->AddPage();
-$pdf->Image('../img/Logos/logo3.png', 20, 3, 30, 17, 'png', '', '', false, 150, 'R', false, false, 1, false, false, false);
+$pdf->Image('../img/Logos/logo3.jpg', 20, 3, 30, 16, 'jpg', '', '', false, 150, 'R', false, false, 0, false, false, false);
 $html='
         <p align="center"><b><h3>CONSETIMIENTO INFORMADO PARA LA APLICACION DE ANESTESIA</h3></b></p>
         <h6>Nombre del Paciente <u>'.$paciente['nombre_p'].'</u> , Representante Legal <u>'.$paciente['nombre_a'].'</u> Testifico que el Dr. <u>'.$paciente['medico_esp'].'</u> 
@@ -162,7 +162,7 @@ $html='
 $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
 //Carta de consetimiento validamente informado
 $pdf->AddPage();
-$pdf->Image('../img/Logos/logo3.png', 20, 3, 30, 17, 'png', '', '', false, 150, 'R', false, false, 1, false, false, false);
+$pdf->Image('../img/Logos/logo3.jpg', 20, 3, 30, 16, 'jpg', '', '', false, 150, 'R', false, false, 0, false, false, false);
 $html='
         <p align="center"><b><h3>CARTA DE CONSETIMIENTO VALIDAMENTE INFORMADO</h3></b></p>
         <h6>Fecha: '.date("d-m-Y").'</h6>
@@ -214,7 +214,7 @@ $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
 
 //Consetimiento informado para cirugia
 $pdf->AddPage();
-$pdf->Image('../img/Logos/logo3.png', 20, 3, 30, 17, 'png', '', '', false, 150, 'R', false, false, 1, false, false, false);
+$pdf->Image('../img/Logos/logo3.jpg', 20, 3, 30, 16, 'jpg', '', '', false, 150, 'R', false, false, 0, false, false, false);
 $html = '
     <span style="text-align:justify;">
         <p align="center">CONSETIMIENTO INFORMADO PARA CIRUGIA</p>

@@ -371,7 +371,7 @@ CREATE TABLE `paciente` (
   `diagnostico` varchar(255) NOT NULL,
   `procedimiento` varchar(30) NOT NULL,
   `status` int(10) NOT NULL,
-  `motivo_cancelacion` varchar(300) NOT NULL
+  `motivo_cancelacion` varchar(300) NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --

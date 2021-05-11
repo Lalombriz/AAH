@@ -1,6 +1,6 @@
 //Código para Datables
 
-//$('#example').DataTable(); //Para inicializar datatables de la manera más simple
+
 
 $(document).ready(function() {    
     $('#paciente').DataTable({
@@ -46,7 +46,13 @@ $(document).ready(function(){
 });//END document.ready
 
 $(document).ready(function(){
-    $('#cancelacion').click(function(){
+    $(document).on('click','.cancelar_cita',function(){
         $('#cancel').modal('show');
+        $tr = $(this).closest('tr');
+        var data = $tr.children("td").map(function(){
+            return $(this).text();
+        }).get();
+        $('#cancel_id').val(data[0]);
+        $('#motivo').val(data[11])
     });
 });//END document.ready

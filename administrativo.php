@@ -59,22 +59,6 @@
                 Menu principal
             </div>
 
-            <!-- Nav Item - Pages Collapse Menu -->
-            <!-- <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-hospital-user"></i>
-                    <span>Doctores</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Opciones Doctores:</h6>
-                        <a class="collapse-item" href="#" data-toggle="modal" data-target="#Doctores">Registrar un Doctor</a>
-                        <a class="collapse-item" href="cards.php">Visualizar Doctores</a>
-                        <a class="collapse-item" href="#">Pagos Doctores</a>
-                    </div>
-                </div>
-            </li> -->
 
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
@@ -502,6 +486,48 @@
         </form>
         <?php include_once "db/insertar_paciente.php"; ?>  <!-- incluye captura de datos a bd -->
     </div>
+    </div>
+</div>
+<div class="modal fade" id="details"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-left" id="myModalLabel">Datos del paciente</h4>
+                <button type="button" class="close text-right" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body" id="detalle_p">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                <div id="results"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="cancel"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-left" id="myModalLabel">Cancelacion</h4>
+                <button type="button" class="close text-right" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <form action="administrativo.php" method="POST" class="form">
+            <div class="modal-body">
+                    <input type="hidden" name="cancel_id" id="cancel_id">
+                    <div class="form-group">
+                        <label id="c_citas">Motivo:</label>
+                        <textarea type="text" class="form-control" name="motivo" id="motivo" required style="resize: none; width: 720px;height: 150px;" onblur="if (this.value == '') {this.value = 'Escribe aqui cual es el motivo de cancelar la cita...';}" onfocus="if (this.value == 'Escribe aqui cual es el motivo de cancelar la cita...') {this.value = '';}" ></textarea>
+                        </label>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" name="aceptar_btn" type="submit">Aceptar</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                <div id="results"></div>
+            </div>
+            </form>
+            <?php include_once "db/cancelar_citas.php"; ?>
+        </div>
     </div>
 </div>
   

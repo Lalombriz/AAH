@@ -6,7 +6,6 @@
     $password ='';
     $db = 'hospital';           
     $mysqli = new mysqli($host,$user,$password,$db);
-    $accion_id='accion';
     $consulta = "";
     $consulta .= '  
       <div class="table-responsive">  
