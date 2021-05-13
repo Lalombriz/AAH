@@ -1,11 +1,11 @@
 <?php
+require_once('../tcpdf.php');
+date_default_timezone_set("America/Ensenada");
 $host= 'localhost';
 $user= 'root';      
 $password ='';
 $db = 'hospital';           
 $mysqli = new mysqli($host,$user,$password,$db);
-require_once('../tcpdf.php');
-date_default_timezone_set("America/Ensenada");
 $id = $_GET['did'];
 $query = "SELECT * from paciente where num_paciente = '$id'";
 $data = $mysqli->query($query);
@@ -16,34 +16,20 @@ $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8',
 $pdf->SetTitle(''.$paciente['nombre_p'].'');
 // set default header data
 $pdf->SetHeaderData(PDF_HEADER_LOGO, '45');
-
 // set header and footer fonts
 $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
-
 // set default monospaced font
 $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
-
 // set margins
 $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
 $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-
 // set auto page breaks
 $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
-
 // set image scale factor
 $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
-
-// set some language-dependent strings (optional)
-if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
-    require_once(dirname(__FILE__).'/lang/eng.php');
-    $pdf->setLanguageArray($l);
-}
-
-// ---------------------------------------------------------
 // set default font subsetting mode
 $pdf->setFontSubsetting(true);
 $pdf->SetFont('aefurat', '', 14, '',true);
-
 // -----------------------Contenidos------------------------
 //Datos del paciente
 $pdf->AddPage();
@@ -53,25 +39,59 @@ $html='
         <h4>Nombre del paciente: <u>'.$paciente['nombre_p'].'</u></h4><br>
         <h4>Edad : <u>'.$paciente['edad'].' Años</u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sexo : <u>'.$paciente['sexo'].'</u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fecha de nacimiento : <u>'.$paciente['fecha_nacimiento'].'</u></h4><br>
         <h4>Procedencia : <u>'.$paciente['procedencia'].'</u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No. : <u>'.$paciente['num_paciente'].'</u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Expediente: #<u>'.$paciente['exp_procedencia'].'</u></h4><br>
-    ';
-$pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
-$pdf->Cell(180, 0, 'DATOS DEL PACIENTE', 1, 1, 'C', 0, '', 0);
-$pdf->Cell(180, 0, 'DOMICILIO: '.$paciente['direccion_p'].'', 1, 1, 'L', 0, '', 0);
-$pdf->Cell(180, 0, 'POBLACION: '.$paciente['poblacion'].'', 1, 1, 'L', 0, '', 0);
-$pdf->Cell(180, 0, 'ESTADO: '.$paciente['estado'].'', 1, 1, 'L', 0, '', 0);
-$pdf->Cell(180, 0, 'TELEFONO: '.$paciente['telefono_p'].'', 1, 1, 'L', 0, '', 0);
-$pdf->Cell(180, 0, 'EN CASO NECESARIO AVISAR A: '.$paciente['nombre_a'].'', 1, 1, 'L', 0, '', 0);
-$pdf->Cell(180, 0, 'PARENTESCO: '.$paciente['parentesco'].'', 1, 1, 'L', 0, '', 0);
-$pdf->Cell(180, 0, 'DOMICILIO: '.$paciente['direccion_a'].'', 1, 1, 'L', 0, '', 0);
-$pdf->Cell(180, 0, 'POBLACION: ', 1, 1, 'L', 0, '', 0);
-$pdf->Cell(180, 0, 'ESTADO: ', 1, 1, 'L', 0, '', 0);
-$pdf->Cell(180, 0, 'TELEFONO: '.$paciente['telefono_a'].'', 1, 1, 'L', 0, '', 0);
-$pdf->Cell(180, 0, 'HORA: ', 1, 1, 'L', 0, '', 0);
-$pdf->Cell(180, 0, 'DIAGNOSTICO: '.$paciente['diagnostico'].'', 1, 1, 'L', 0, '', 0);
-$html='
-        <br><p align="left">AUTORIZACION DEL PROCEDIMIENTO</p>
+        <table class="table" border="1" style="width:100%;">
+            <tr>  
+                <td width="30%">Domicilio</td>  
+                <td width="70%">'.$paciente["direccion_p"].'</td>  
+            </tr>
+            <tr>  
+                <td width="30%">Poblacion</td>  
+                <td width="70%">'.$paciente['poblacion'].'</td>  
+            </tr>
+            <tr>  
+                <td width="30%">Estado</td>  
+                <td width="70%">'.$paciente['estado'].'</td>  
+            </tr>
+            <tr>  
+                <td width="30%">Telefono</td>  
+                <td width="70%">'.$paciente['telefono_p'].'</td>  
+            </tr>
+            <tr>  
+                <td width="35%">En caso necesario avisar a</td>  
+                <td width="65%">'.$paciente['nombre_a'].'</td>  
+            </tr>
+            <tr>  
+                <td width="30%">Parentesco</td>  
+                <td width="70%">'.$paciente['parentesco'].'</td>  
+            </tr>
+            <tr>  
+                <td width="30%">Domicilio</td>  
+                <td width="70%">'.$paciente['direccion_a'].'</td>  
+            </tr>
+            <tr>  
+                <td width="30%">Poblacion</td>  
+                <td width="70%"></td>  
+            </tr>
+            <tr>  
+                <td width="30%">Estado</td>  
+                <td width="70%"></td>  
+            </tr>
+            <tr>  
+                <td width="30%">Telefono</td>  
+                <td width="70%">'.$paciente['telefono_a'].'</td>  
+            </tr>
+            <tr>  
+                <td width="30%">Hora</td>  
+                <td width="70%"></td>  
+            </tr>
+            <tr>  
+                <td width="30%">Diagnostico</td>  
+                <td width="70%">'.$paciente['diagnostico'].'</td>  
+            </tr>
+        </table>
+        <p align="left">AUTORIZACION DEL PROCEDIMIENTO</p>
         <h6>NOMBRE DEL MEDICO QUE REALIZO EL PROCEDIMIENTO:</h6>
-        <h6>PROCEDIMIENTO REALIZADO AL PACIENTE:</h6>
+        <h6>PROCEDIMIENTO REALIZADO AL PACIENTE:</h6><br>
         <h6>NOMBRE Y FIRMA DEL PACIENTE O FAMILIAR________________________________________________________</h6><br>
         <h5>
             <input type="checkbox" name="a" value="a">MEJORIA
@@ -211,7 +231,6 @@ $html='
         </h5>
     ';
 $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
-
 //Consetimiento informado para cirugia
 $pdf->AddPage();
 $pdf->Image('../img/Logos/logo3.jpg', 20, 3, 30, 16, 'jpg', '', '', false, 150, 'R', false, false, 0, false, false, false);

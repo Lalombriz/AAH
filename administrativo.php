@@ -181,7 +181,7 @@
                     <!-- Content Row -->
                     <div class="row">
                         <!-- Lista de pacientes -->
-                        <div>
+                        <div style="width:100%;">
                             <div class="border shadow">
                                 <?php include_once "db/consulta_paciente.php"; ?>
                             </div>

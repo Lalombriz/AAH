@@ -12,5 +12,6 @@ if(isset($_POST['aceptar_btn']))
     $query = "UPDATE paciente SET status='1' , motivo_cancelacion='".$motivo."' WHERE num_paciente='".$id."' ";
     $mysqli->query($query);
     $mysqli->close();
+    echo "<meta http-equiv='refresh' content='0'>";
 }
 ?>
