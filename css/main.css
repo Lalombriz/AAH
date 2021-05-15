@@ -7,3 +7,21 @@ header{
 
 .form-control { width: 100%; }
 
+.btn-group a {
+    background-color: #167aec;
+    border: 1px solid rgb(60, 137, 238); 
+    color: white;
+    padding: 10px 24px;
+    cursor: pointer; 
+    width: 100%;
+    display: block; 
+  }
+  
+  .btn-group a:not(:last-child) {
+    border-bottom: none;
+  }
+  
+  .btn-group a:hover {
+    background-color: #1cbcec;
+  }
+

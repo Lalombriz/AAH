@@ -70,11 +70,9 @@
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header fas fa-folder-open"> Archivos:</h6>
-                        <a class="collapse-item" href="#" data-toggle="modal" data-target="#Data_Paciente">Indicaciones de seguridad</a>
-                        <a class="collapse-item" href="#" data-toggle="modal" data-target="#Usuarios">Valoracion de alta de recuperacion</a>
-                        <a class="collapse-item" href="#" data-toggle="modal" data-target="#Usuarios">Consumos de insumos</a>
-                        <a class="collapse-item" href="#" data-toggle="modal" data-target="#Usuarios">Lista de verificacion de la seguridad de la cirugua</a>
+                        <h6 class="collapse-header">Opciones Pacientes:</h6>
+                        <a class="collapse-item" href="#" data-toggle="modal" data-target="#Data_Paciente">Registrar un paciente</a>
+                        <a class="collapse-item" href="#" data-toggle="modal" data-target="#Usuarios">Crear Usuarios</a>
                     </div>
                 </div>
             </li>
@@ -307,6 +305,29 @@
             </div>
             </form>
             <?php include_once "db/cambiar_estatus.php"; ?>
+        </div>
+    </div>
+</div>
+
+<!-- Modal archivos -->
+<div class="modal fade" id="archivos"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-left" id="myModalLabel">Imprimir</h4>
+                <button type="button" class="close text-right" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body btn-group">
+                    <input type="hidden" name="imprimir_id" id="imprimir_id" value="imprimir_id">
+                    <a class="btn" target="_blank" href="db/hoja_valoracion.php?" onclick="window.location=this.href+'id='+document.getElementById('imprimir_id').value;">Valoracion de alta recuperacion</a>
+                    <a class="btn" target="_blank" href="db/hoja_consumos.php?" onclick="window.location=this.href+'id='+document.getElementById('imprimir_id').value;">Consumos de insumos</a>
+                    <a class="btn" target="_blank" href="db/hoja_verificacion.php?" onclick="window.location=this.href+'id='+document.getElementById('imprimir_id').value;">Lista de verificacion de la seguridad de la cirugia</a>
+                    <a class="btn" target="_blank" href="db/hoja_indicadores.php?" onclick="window.location=this.href+'id='+document.getElementById('imprimir_id').value;">Indicadores de seguridad</a>
+                    <a class="btn" target="_blank" href="db/hoja_registro_enfermeria.php?" onclick="window.location=this.href+'id='+document.getElementById('imprimir_id').value;">Registro de enfermeria</a>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+            </div>
         </div>
     </div>
 </div>

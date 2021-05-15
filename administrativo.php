@@ -73,8 +73,6 @@
                         <h6 class="collapse-header">Opciones Pacientes:</h6>
                         <a class="collapse-item" href="#" data-toggle="modal" data-target="#Data_Paciente">Registrar un paciente</a>
                         <a class="collapse-item" href="#" data-toggle="modal" data-target="#Usuarios">Crear Usuarios</a>
-                        <!-- <a class="collapse-item" href="utilities-animation.php">Animations</a>
-                        <a class="collapse-item" href="utilities-other.php">Other</a> -->
                     </div>
                 </div>
             </li>

@@ -44,5 +44,4 @@
     }
 
     $mysqli->close();
-    echo "<meta http-equiv='refresh' content='0'>";
 ?>

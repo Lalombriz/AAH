@@ -58,7 +58,7 @@
                                 <div id="'.$accion_id.'" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                                     <div class="bg-white py-2 collapse-inner rounded">
                                         <a class="collapse-item detalle_pac" href="#" id="'.$paciente['num_paciente'].'" data-dismiss="modal">Ver mas</a>
-                                        <a class="collapse-item" target="_blank" href="db/hoja_registro_enfermeria.php?did='.$paciente['num_paciente'].'" >Imprimir</a></a>
+                                        <a class="collapse-item imprimir" href="#" id="'.$paciente['num_paciente'].'" data-dismiss="modal">Imprimir</a></a>
                                         <a class="collapse-item cambio_estatus" href="#" id="'.$paciente['num_paciente'].'" data-dismiss="modal">Estatus</a>
                                     </div>
                                 </div>

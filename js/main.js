@@ -58,6 +58,18 @@ $(document).ready(function(){
 });//END document.ready
 
 $(document).ready(function(){
+    $(document).on('click','.imprimir',function(){
+        $('#archivos').modal('show');
+        $tr = $(this).closest('tr');
+        var data = $tr.children("td").map(function(){
+            return $(this).text();
+        }).get();
+        console.log(data);
+        $('#imprimir_id').val(data[0]);
+    });
+});//END document.ready
+
+$(document).ready(function(){
     $(document).on('click','.cambio_estatus',function(){
         $('#modal_estatus').modal('show');
         $tr = $(this).closest('tr');
