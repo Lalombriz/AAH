@@ -64,8 +64,8 @@ $(document).ready(function(){
         var data = $tr.children("td").map(function(){
             return $(this).text();
         }).get();
-        console.log(data);
         $('#imprimir_id').val(data[0]);
+        $('#indicador_id').val(data[0]);
     });
 });//END document.ready
 
@@ -77,6 +77,12 @@ $(document).ready(function(){
             return $(this).text();
         }).get();
         $('#estatus_id').val(data[0]);
+    });
+});//END document.ready
+
+$(document).ready(function(){
+    $(document).on('click','.btn_IS',function(){
+        $('#modal_indicador_seguridad').modal('show');
     });
 });//END document.ready
 
@@ -94,6 +100,23 @@ $(document).ready(function(){
                    }
                }
         $('#selected_e').val(last_val);
+    });
+});//END document.ready
+
+$(document).ready(function(){
+    $(document).on('click','.indicadores_btn',function(){
+        var checkboxlist = document.getElementById('select_pd');
+        var checkOptions =   checkboxlist.getElementsByTagName('input');
+        var listSelected = checkboxlist.getElementsByTagName('li');
+        var last_val = '';
+        for(i = 0; i < checkOptions.length; i++)
+               {
+                   if(checkOptions[i].checked)
+                   {
+                       last_val = listSelected[i].textContent || listSelected[i].innerText; // so it works in IE8 and lower
+                   }
+               }
+        $('#selected_pd').val(last_val);
     });
 });//END document.ready
 

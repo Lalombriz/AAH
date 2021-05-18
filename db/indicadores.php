@@ -57,30 +57,32 @@ $html='
                 <td width="20%">SEXO: '.$paciente["sexo"].'</td>
             </tr>
             <tr>  
-                <td width="100%">PROCEDIMIENTO QUIRURGICO: '.$_POST['PQ'].'</td>  
+                <td width="100%">PROCEDIMIENTO QUIRURGICO: <input align="center" type="text" name="proc_q" size="65"></td>  
             </tr>
             <tr>  
-                <td width="100%">CIRUJANO: '.$_POST['CJ'].'</td>  
+                <td width="100%">CIRUJANO: <input align="center" type="text" name="cirujano_is" size="85"></td>  
             </tr>
             <tr>  
-                <td width="100%">ENFERMERA CIRCULANTE: '.$_POST['EC'].'</td>  
+                <td width="100%">ENFERMERA CIRCULANTE: <input align="center" type="text" name="enf_circ" size="70"></td>  
             </tr>
             <tr>  
-                <td width="50%">ENFERMERA QUIRURGICA: '.$_POST['EQ'].'</td>  
-                <td width="50%">INFECCIONES PREVIAS: '.$_POST['IP'].'</td>
+                <td width="50%">ENFERMERA QUIRURGICA: <input align="center" type="text" name="enf_quir" size="21"></td>  
+                <td width="50%">INFECCIONES PREVIAS: <input align="center" type="text" name="inf_prev" size="25"></td>
             </tr>
             <tr>  
-                <td width="35%">PACIENTE DIABETICO: '.$pd.'</td>  
-                <td width="50%">NOMBRE ANTIBIOTICO: '.$_POST['NA'].'</td>
-                <td width="15%">HORA: '.$_POST['HA'].'</td>
+                <td width="25%">PACIENTE DIABETICO</td>  
+                <td width="5%">NO</td>
+                <td width="5%">SI</td>
+                <td width="50%">NOMBRE ANTIBIOTICO: <input align="center" type="text" name="nombre_antibiotico" size="25"></td>
+                <td width="15%">HORA: <input align="center" type="text" name="hora_antibiotico" size="7"></td>
             </tr>
             <tr>  
-                <td width="85%">ANTISEPSIA: '.$_POST['AS'].'</td>
-                <td width="15%">HORA: '.$_POST['HAS'].'</td>
+                <td width="85%">ANTISEPSIA: <input align="center" type="text" name="antisepsia" size="69"></td>
+                <td width="15%">HORA: <input align="center" type="text" name="hora_antisepsia" size="7"></td>
             </tr>
             <tr>  
-                <td width="50%">INICIO DE CIRUGIA: '.$_POST['IC'].'</td>  
-                <td width="50%">TERMINA CIRUGIA: '.$_POST['TC'].'</td>
+                <td width="50%">INICIO DE CIRUGIA: <input align="center" type="text" name="inic_cirugia" size="28"></td>  
+                <td width="50%">TERMINA CIRUGIA: <input align="center" type="text" name="term_cirugia" size="28"></td>
             </tr>
         </table>
         <h3>&nbsp;</h3>

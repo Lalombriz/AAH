@@ -320,14 +320,99 @@
             <div class="modal-body btn-group">
                     <input type="hidden" name="imprimir_id" id="imprimir_id" value="imprimir_id">
                     <a class="btn" target="_blank" href="db/hoja_valoracion.php?" onclick="window.location=this.href+'id='+document.getElementById('imprimir_id').value;">Valoracion de alta recuperacion</a>
-                    <a class="btn" target="_blank" href="db/hoja_consumos.php?" onclick="window.location=this.href+'id='+document.getElementById('imprimir_id').value;">Consumos de insumos</a>
+                    <a class="btn btn_IS" href="#" data-dismiss="modal">Indicadores de seguridad</a>
                     <a class="btn" target="_blank" href="db/hoja_verificacion.php?" onclick="window.location=this.href+'id='+document.getElementById('imprimir_id').value;">Lista de verificacion de la seguridad de la cirugia</a>
-                    <a class="btn" target="_blank" href="db/hoja_indicadores.php?" onclick="window.location=this.href+'id='+document.getElementById('imprimir_id').value;">Indicadores de seguridad</a>
                     <a class="btn" target="_blank" href="db/hoja_registro_enfermeria.php?" onclick="window.location=this.href+'id='+document.getElementById('imprimir_id').value;">Registro de enfermeria</a>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
             </div>
+        </div>
+    </div>
+</div>
+<!-- Modal archivos -->
+<div class="modal fade" id="modal_indicador_seguridad"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-left" id="myModalLabel">Indicadores de seguridad</h4>
+                <button type="button" class="close text-right" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <form action="db/hoja_indicadores.php" method="POST" class="form">
+            <div class="modal-body">
+                <div class="row">  
+                    <input type="hidden" name="indicador_id" id="indicador_id" value="indicador_id"> 
+                    <div style=" margin-left: 25px;" class="col-md-5">
+                        <label>PROCEDIMIENTO QUIRURGICO</label>
+                        <input type="text" class="form-control" id="PQ" name="PQ" required>
+                        <br>
+                    </div>
+                    <div style=" margin-left: 25px;" class="col-md-5">
+                        <label>CIRUJANO</label>
+                        <input type="text" class="form-control" id="CJ" name="CJ" required>
+                        <br>
+                    </div>
+                    <div style=" margin-left: 25px;" class="col-md-5">
+                        <label>ENFERMERA CIRCULANTE</label>
+                        <input type="text" class="form-control" id="EC" name="EC" required>
+                        <br>
+                    </div>
+                    <div style=" margin-left: 25px;" class="col-md-5">
+                        <label>ENFERMERA QUIRURGICA</label>
+                        <input type="text" class="form-control" id="EQ" name="EQ" required>
+                        <br>
+                    </div>
+                    <div style=" margin-left: 25px;" class="col-md-5">
+                        <label>INFECCIONES PREVIAS</label>
+                        <input type="text" class="form-control" id="IP" name="IP" required>
+                        <br>
+                    </div>
+                    <div style=" margin-left: 25px;" class="col-md-5">
+                        <label>PACIENTE DIABETICO</label><br>
+                        <ul name="select_pd" id="select_pd" style="list-style: none;">
+                            <li><input type="checkbox" id="a" name="a">SI</li>
+                            <li><input type="checkbox" id="b" name="b">NO</li>
+                        </ul>
+                        <br>
+                    </div>
+                    <div style=" margin-left: 25px;" class="col-md-5">
+                        <label>NOMBRE ANTIBIOTICO</label>
+                        <input type="text" class="form-control" id="NA" name="NA" required>
+                        <br>
+                    </div>
+                    <div style=" margin-left: 25px;" class="col-md-5">
+                        <label>HORA ANTIBIOTICO</label>
+                        <input type="time" class="form-control" id="HA" name="HA" required>
+                        <br>
+                    </div>
+                    <div style=" margin-left: 25px;" class="col-md-5">
+                        <label>ANTISEPSIA</label>
+                        <input type="text" class="form-control" id="AS" name="AS" required>
+                        <br>
+                    </div>
+                    <div style=" margin-left: 25px;" class="col-md-5">
+                        <label>HORA ANTISEPSIA</label>
+                        <input type="time" class="form-control" id="HAS" name="HAS" required>
+                        <br>
+                    </div>
+                    <div style=" margin-left: 25px;" class="col-md-5">
+                        <label>INICIO CIRUGIA</label>
+                        <input type="time" class="form-control" id="IC" name="IC" required>
+                        <br>
+                    </div>
+                    <div style=" margin-left: 25px;" class="col-md-5">
+                        <label>TERMINA CIRUGIA</label>
+                        <input type="time" class="form-control" id="TC" name="TC" required>
+                        <br>
+                    </div>
+                    <input type="hidden" value="0" name="selected_pd" id="selected_pd">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary indicadores_btn" name="aceptar" type="submit">Aceptar</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+            </div>
+            </form>
         </div>
     </div>
 </div>
