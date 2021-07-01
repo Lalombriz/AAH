@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 08-05-2021 a las 04:06:26
--- Versión del servidor: 10.4.17-MariaDB
--- Versión de PHP: 8.0.1
+-- Tiempo de generación: 02-07-2021 a las 00:12:22
+-- Versión del servidor: 10.4.19-MariaDB
+-- Versión de PHP: 8.0.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -359,6 +359,7 @@ CREATE TABLE `paciente` (
   `estado` varchar(30) NOT NULL,
   `edad` int(11) NOT NULL,
   `sexo` varchar(10) NOT NULL,
+  `CURP` varchar(300) NOT NULL,
   `procedencia` varchar(10) NOT NULL,
   `num_afiliacion` int(11) NOT NULL,
   `nombre_a` varchar(50) NOT NULL,
@@ -371,17 +372,17 @@ CREATE TABLE `paciente` (
   `diagnostico` varchar(255) NOT NULL,
   `procedimiento` varchar(30) NOT NULL,
   `status` int(10) NOT NULL,
-  `motivo_cancelacion` varchar(300) NULL
+  `motivo_cancelacion` varchar(300) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `paciente`
 --
 
-INSERT INTO `paciente` (`num_paciente`, `exp_procedencia`, `nombre_p`, `fecha_nacimiento`, `direccion_p`, `telefono_p`, `poblacion`, `estado`, `edad`, `sexo`, `procedencia`, `num_afiliacion`, `nombre_a`, `parentesco`, `telefono_a`, `direccion_a`, `medico_esp`, `especialidad`, `anestesiologo`, `diagnostico`, `procedimiento`, `status`, `motivo_cancelacion`) VALUES
-(10, 10, 'Eduardo Marcelo Gutierrez Soto', '2021-04-05', 'Chicomostoc 891, colonia aztlan, Rosarityo baja california', '661-110-411', 'Rosarito', 'Baja California', 25, 'Masculino', 'PRIVADO', 1234657, 'Guillermo Eugenio Gutierrez Soto', 'Hernamo', '664-336-323', 'Chicomostoc 891, Aztlan Rosarito Baja California', 'Altamirano Gonzalez', 'Cirujano', 'Gutierrez Gonzalez', 'operacion', 'Riñon', 0, 'hklasdoaksdn'),
-(11, 11, 'Feng', '2021-04-12', 'sadfsfd', '12232343', 'sdfsdf', 'sfsf', 12, 'Femenino', 'INSABI', 123456, 'adass', 'sdadfghg', '123456', 'gfhgffg', '12345', 'csfsdds', 'safsdfsd', 'sadfsdfsd', 'asfsdgfg', 0, '0'),
-(12, 12, 'Edgar', '2021-04-25', 'tijuana', '33333333', 'Tijuana', 'Baja California', 12, 'Masculino', 'INSABI', 231241, 'Gustavo', 'Hernano', '3333333', 'Calle 2da', 'Dr. Juan Antonio', 'Oftamologo', 'Dr. RIvera', 'Operacion de Cornea', 'Cirugia', 0, '0');
+INSERT INTO `paciente` (`num_paciente`, `exp_procedencia`, `nombre_p`, `fecha_nacimiento`, `direccion_p`, `telefono_p`, `poblacion`, `estado`, `edad`, `sexo`, `CURP`, `procedencia`, `num_afiliacion`, `nombre_a`, `parentesco`, `telefono_a`, `direccion_a`, `medico_esp`, `especialidad`, `anestesiologo`, `diagnostico`, `procedimiento`, `status`, `motivo_cancelacion`) VALUES
+(10, 10, 'Eduardo Marcelo Gutierrez Soto', '2021-04-05', 'Chicomostoc 891, colonia aztlan, Rosarityo baja california', '661-110-411', 'Rosarito', 'Baja California', 25, 'Masculino', 'GUSE950628HYNTTD04', 'PRIVADO', 1234657, 'Guillermo Eugenio Gutierrez Soto', 'Hernamo', '664-336-323', 'Chicomostoc 891, Aztlan Rosarito Baja California', 'Altamirano Gonzalez', 'Cirujano', 'Gutierrez Gonzalez', 'operacion', 'Riñon', 0, 'hklasdoaksdn'),
+(11, 11, 'Feng', '2021-04-12', 'sadfsfd', '12232343', 'sdfsdf', 'sfsf', 12, 'Femenino', '', 'INSABI', 123456, 'adass', 'sdadfghg', '123456', 'gfhgffg', '12345', 'csfsdds', 'safsdfsd', 'sadfsdfsd', 'asfsdgfg', 0, '0'),
+(12, 12, 'Edgar', '2021-04-25', 'tijuana', '33333333', 'Tijuana', 'Baja California', 12, 'Masculino', '', 'INSABI', 231241, 'Gustavo', 'Hernano', '3333333', 'Calle 2da', 'Dr. Juan Antonio', 'Oftamologo', 'Dr. RIvera', 'Operacion de Cornea', 'Cirugia', 0, '0');
 
 -- --------------------------------------------------------
 

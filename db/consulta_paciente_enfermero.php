@@ -16,7 +16,7 @@
         $consulta.="<table id='paciente' class='table table-bordered table-hover' style='width:100%;'>
                                 <thead>
                                     <tr>
-                                        <th>No. de paciente</th>
+                                        <th>No. de Expediente</th>
                                         <th>Nombre</th>
                                         <th>Edad</th>
                                         <th>Sexo</th>
@@ -41,7 +41,7 @@
             }
             $accion_id .= strval($paciente['num_paciente']);
             $consulta .= '<tr class="trID_' .$paciente['num_paciente']. '">';
-            $consulta .= '<td class="numero">' . $paciente['num_paciente'] . '</td>';
+            $consulta .= '<td class="numero">'."Expediente: ". $paciente['num_paciente'] . '</td>';
             $consulta .= '<td class="td_nombre">' . $paciente['nombre_p'] . '</td>';
             $consulta .= '<td class="edad">' . $paciente['edad'] . '</td>';
             $consulta .= '<td class="sexo">' . $paciente['sexo'] . '</td>';
@@ -58,7 +58,7 @@
                                 <div id="'.$accion_id.'" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                                     <div class="bg-white py-2 collapse-inner rounded">
                                         <a class="collapse-item detalle_pac" href="#" id="'.$paciente['num_paciente'].'" data-dismiss="modal">Ver mas</a>
-                                        <a class="collapse-item imprimir" href="#" id="'.$paciente['num_paciente'].'" data-dismiss="modal">Imprimir</a></a>
+                                        <a class="collapse-item imprimir" href="#" id="'.$paciente['num_paciente'].'" data-dismiss="modal">Opciones</a></a>
                                         <a class="collapse-item cambio_estatus" href="#" id="'.$paciente['num_paciente'].'" data-dismiss="modal">Estatus</a>
                                     </div>
                                 </div>

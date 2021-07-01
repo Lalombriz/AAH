@@ -6,7 +6,7 @@
 <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Sistema Hospitalario UNEME - Charts</title>
+    <title>Sistema Hospitalario UNEME</title>
     <link rel="shortcut icon" href="img/Logos/Unidad.png"/>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
@@ -173,7 +173,7 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Lista de pacientes</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Lista de Pacientes Internados</h1>
                     </div>
 
                     <!-- Content Row -->
@@ -309,12 +309,12 @@
     </div>
 </div>
 
-<!-- Modal archivos -->
+<!-- Modal para la impresion de archivos del paciente -->
 <div class="modal fade" id="archivos"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title text-left" id="myModalLabel">Imprimir</h4>
+                <h4 class="modal-title text-left" id="myModalLabel">Opciones Enfermeria</h4>
                 <button type="button" class="close text-right" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body btn-group">
@@ -330,7 +330,8 @@
         </div>
     </div>
 </div>
-<!-- Modal archivos -->
+
+<!-- Modal indicadores de seguridad -->
 <div class="modal fade" id="modal_indicador_seguridad"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
