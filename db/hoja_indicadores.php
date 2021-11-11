@@ -35,7 +35,7 @@ $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
 $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
 // set default font subsetting mode
 $pdf->setFontSubsetting(true);
-$pdf->SetFont('aefurat', '', 14, '',true);
+$pdf->SetFont('montserratmedium', '', 12, '',true);
 // -----------------------Contenidos------------------------
 // INDICADORES DE SEGURIDAD
 $pdf->AddPage();

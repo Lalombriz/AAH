@@ -7,15 +7,34 @@ $password ='';
 $db = 'hospital';           
 $mysqli = new mysqli($host,$user,$password,$db);
 $id = $_GET['id'];
+// querys para funcion del doc
+// query para seleccionar el paciente
 $query = "SELECT * from paciente where num_paciente = '$id'";
 $data = $mysqli->query($query);
 $paciente = $data->fetch_assoc();
+
+// querys para poder seleccionar la informacion del paciente correspondiente
+$query1 = "SELECT * from fase_1 where num_paciente = '$id'";
+$data1 = $mysqli->query($query1);
+$fase1 = $data1->fetch_assoc();
+
+$query2 = "SELECT * from fase_2 where num_paciente = '$id'";
+$data2 = $mysqli->query($query2);
+$fase2 = $data2->fetch_assoc();
+
+$query3 = "SELECT * from fase_3 where num_paciente = '$id'";
+$data3 = $mysqli->query($query3);
+$fase3 = $data3->fetch_assoc();
+
+$query4 = "SELECT * from nota_quirofano where no_exp = '$id'";
+$data4 = $mysqli->query($query4);
+$nota_quirofano = $data4->fetch_assoc();
 // create pdf
 $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 // set title
-$pdf->SetTitle(''.$paciente['nombre_p'].'');
+$pdf->SetTitle('Verificacion de la cirugia');
 // set default header data
-$pdf->SetHeaderData(PDF_HEADER_LOGO, '45');
+// $pdf->SetHeaderData(PDF_HEADER_LOGO, '45');
 // set header fonts
 $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
 // set default monospaced font
@@ -29,67 +48,68 @@ $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
 $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
 // set default font subsetting mode
 $pdf->setFontSubsetting(true);
-$pdf->SetFont('aefurat', '', 14, '',true);
+$pdf->SetFont('freesansi', '', 10, '',true);
 // -----------------------Contenidos------------------------
 // LISTA DE VERIFICACION DE LA SEGURIDAD DE LA CIRUGIA
 $pdf->AddPage('L');
-$pdf->Image('../img/Logos/logo3.jpg', 20, 3, 30, 16, 'jpg', '', '', false, 150, 'R', false, false, 0, false, false, false);
+$pdf->Image('../img/Logos/logo3.jpg', 20, 16, 40, 13, 'jpg', '', '', false, 150, 'R', false, false, 0, false, false, false);
+$pdf->Image('../img/Logos/logo1.jpg', 20, 16, 47, 12, 'jpg', '', '', false, 150, 'L', false, false, 0, false, false, false);
 $html='
-        <h3 align="center">LISTA DE VERIFICACION DE LA SEGURIDAD DE LA CIRUGIA</h3>
+        <h2 align="center">LISTA DE VERIFICACION DE LA SEGURIDAD DE LA CIRUGIA</h2>
         <h align="left">Nombre del paciente: <u>'.$paciente['nombre_p'].' </u>&nbsp;&nbsp;&nbsp;Procedimiento: <u>'.$paciente['procedimiento'].'</h3>
         <table>
             <tr>
                 <td>
-                    <table border="1" style="font-size:12px;">
+                    <table border="1" style="font-size:12.3px;">
                         <tr>
                             <td align="center">FASE 1: ENTRADA<br>Antes de la introduccion de la anestesia</td>
                         </tr>
                         <tr>
                             <td> El Cirujano, el Anestesiólogo y el personal de enfermería en presencia del Paciente han confirmado:<br>
-                                <input type="checkbox" name="a" value="a">Su identidad<br>
-                                <input type="checkbox" name="b" value="b">El sitio quirúrgico<br>
-                                <input type="checkbox" name="c" value="c">El procedimiento quirúrgico<br>
-                                <input type="checkbox" name="d" value="d">Su consetimiento
+                                ['.$fase1['1_identidad'].'] Su identidad<br>
+                                ['.$fase1['1_sitio_quirurgico'].'] El sitio quirúrgico<br>
+                                ['.$fase1['1_procedimiento_quirurgico'].'] El procedimiento quirúrgico<br>
+                                ['.$fase1['1_consentimiento'].'] Su consetimiento
                             </td>
                         </tr>
                         <tr>
                             <td> ¿El Anestesiólogo ha confirmado con el Cirujano que esté marcado el sitio quirúrgico:<br>
-                            <input type="checkbox" name="e" value="e">Si<br>
-                            <input type="checkbox" name="f" value="f">No procede
+                            ['.$fase1['2_si'].'] Si<br>
+                            ['.$fase1['2_no_procede'].'] No procede
                             </td>
                         </tr>
                         <tr>
                             <td> El Cirujano ha confirmado la asepsiae en el sitio quirúrgico:<br>
-                            <input type="checkbox" name="g" value="g">Si<br>
-                            <input type="checkbox" name="h" value="h">No procede
+                            ['.$fase1['3_si'].'] Si<br>
+                            ['.$fase1['3_no_procede'].'] No procede
                             </td>
                         </tr>
                         <tr>
                             <td> El Anestesiólogo ha completado el control de la anestesia al revisar: medicamentos, equipo (funcionalidad y condiciones óptimas) y riesgo anestésico del paciente:<br>
-                            <input type="checkbox" name="i" value="i">Si
-                            <input type="checkbox" name="j" value="j">No
+                            ['.$fase1['4_si'].'] Si ,
+                            ['.$fase1['4_no'].'] No
                             </td>
                         </tr>
                         <tr>
                             <td> El Anestesiólogo colocado y comprobado que funcione el oxímetro de pulso correctamente:<br>
-                            <input type="checkbox" name="k" value="k">Si
-                            <input type="checkbox" name="l" value="l">No
+                            ['.$fase1['5_si'].'] Si ,
+                            ['.$fase1['5_no'].'] No
                             </td>
                         </tr>
                         <tr>
                             <td> El anestesiólogo ha confirmado si el paciente tiene:<br>
                             ¿Alergias conocidas?<br>
-                            <input type="checkbox" name="m" value="m">Si
-                            <input type="checkbox" name="n" value="n">No<br>
+                            ['.$fase1['6_si'].'] Si ,
+                            ['.$fase1['6_no'].'] No<br>
                             ¿Via aérea dificil y/o riesgo de aspiración?<br>
-                            <input type="checkbox" name="o" value="o">No
-                            <label align="center"><input type="checkbox" name="p" value="p">Si, y se cuenta con material, equipo y ayuda disponible.</label><br>
+                            ['.$fase1['7_no'].'] No ,
+                            <label align="center">['.$fase1['7_si'].'] Si, y se cuenta con material, equipo y ayuda disponible.</label><br>
                             ¿Riesgo de hemorragia en adultos&#62;500mL ? (niños&#62;7mL/kg)?<br>
-                            <input type="checkbox" name="q" value="q">No
-                            <label align="center"><input type="checkbox" name="r" value="r">Si, y se ha previsto la disponibilidad de liquidos y dos vías centrales.</label><br>
+                            ['.$fase1['8_no'].'] No ,
+                            <label align="center">['.$fase1['8_si'].'] Si, y se ha previsto la disponibilidad de liquidos y dos vías centrales.</label><br>
                             ¿Posible necesidad de hemoderivados y soluciones disponibles?<br>
-                            <input type="checkbox" name="s" value="s">No
-                            <label align="center"><input type="checkbox" name="t" value="t">Si, y se ha realizado el cruce de sangre previamente.</label><br><br><br>
+                            ['.$fase1['9_no'].'] No ,
+                            <label align="center">['.$fase1['9_si'].'] Si, y se ha realizado el cruce de sangre previamente.</label>
                             </td>
                         </tr>
                     </table>
@@ -101,79 +121,79 @@ $html='
                         </tr>
                         <tr>
                             <td> La Instrumentista ha identificado cada uno de los miembros del equipo quirúrgico para que se presenten por su nombre y funcion, sin omisiones.:<br>
-                                <input type="checkbox" name="f2a" value="f2a">Cirujano&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <input type="checkbox" name="f2b" value="f2b">Anestesiólogo<br>
-                                <input type="checkbox" name="f2c" value="f2c">Ayudante de Cirujano
-                                <input type="checkbox" name="f2d" value="f2d">Circulante<br>
-                                <input type="checkbox" name="f2e" value="f2e">Otros.
+                                ['.$fase2['1_cirujano'].'] Cirujano&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                ['.$fase2['1_anestesiologo'].'] Anestesiólogo<br>
+                                ['.$fase2['1_ayudante'].'] Ayudante de Cirujano
+                                ['.$fase2['1_circulante'].'] Circulante<br>
+                                ['.$fase2['1_otros'].'] Otros.
                             </td>
                         </tr>
                         <tr>
                             <td> El Cirujano, ha confirmado de manera verbal con el Anestesiólogo y el personal de Enfermería (Instrumentista y Circulante):<br>
-                                <input type="checkbox" name="f2f" value="f2f">Paciente correcto.<br>
-                                <input type="checkbox" name="f2g" value="f2g">Procedimiento correcto.<br>
-                                <input type="checkbox" name="f2h" value="f2h">Sitio quirúrgico correcto.<br>
-                                <label align="center"><input type="checkbox" name="f2i" value="f2i">En caso de órgano bilateral ha marcado derecho o izquierdo según corresponda.</label><br>
-                                <label align="center"><input type="checkbox" name="f2j" value="f2j">En caso de estructura múltiple, ha especificado el nivel a operar.</label><br>
-                                <input type="checkbox" name="f2k" value="f2k">Posición correcta del paciente.
+                            ['.$fase2['2_paciente_correcto'].'] Paciente correcto.<br>
+                            ['.$fase2['2_procedimiento_correcto'].'] Procedimiento correcto.<br>
+                            ['.$fase2['2_sitio_quirurgico_correcto'].'] Sitio quirúrgico correcto.<br>
+                            ['.$fase2['2_organo_bilateral'].'] En caso de órgano bilateral ha marcado derecho o izquierdo según corresponda.<br>
+                            ['.$fase2['2_estrctura_multiple'].'] En caso de estructura múltiple, ha especificado el nivel a operar.<br>
+                            ['.$fase2['2_posicion_correcta'].'] Posición correcta del paciente.
                             </td>
                         </tr>
                         <tr>
                             <td> El Cirujano ha verificado que cuenta con los estudios de imagen que requiere?<br>
-                            <input type="checkbox" name="f2l" value="f2l">Si
-                            <input type="checkbox" name="f2m" value="f2m">No
-                            <input type="checkbox" name="f2n" value="f2n">No Procede
+                            ['.$fase2['3_si'].'] Si ,
+                            ['.$fase2['3_no'].'] No ,
+                            ['.$fase2['3_no_procede'].'] No Procede
                             </td>
                         </tr>
                         <tr>
                             <td><h3 align="center">PREVENCIÓN DE EVENTOS CRÍTICOS</h3><br>
                             El Cirujano ha informado:<br>
-                            <input type="checkbox" name="f2o" value="f2o">Los pasos críticos o no sistematizados.<br>
-                            <input type="checkbox" name="f2p" value="f2p">La duración de la operación.<br>
-                            <input type="checkbox" name="f2q" value="f2q">La pérdida de sangre prevista.<br>
+                            ['.$fase2['4_pasos_criticos'].'] Los pasos críticos o no sistematizados.<br>
+                            ['.$fase2['4_duracion_operacion'].'] La duración de la operación.<br>
+                            ['.$fase2['4_perdida_sangre'].'] La pérdida de sangre prevista.<br>
                             El Anestesiólogo ha conformado:<br>
-                            <label align="center"><input type="checkbox" name="f2r" value="f2r">La existencia de algún riesgo de enfermedad en el paciente que pueda complicar la cirugía.</label><br>
+                            ['.$fase2['4_riesgo_enfermedad'].'] La existencia de algún riesgo de enfermedad en el paciente que pueda complicar la cirugía.<br>
                             El Personal de Enfermería ha confirmado:<br>
-                            <label align="center"><input type="checkbox" name="f2s" value="f2s">La fehca y método de la esterilización del equipo y el instrumental.</label><br>
-                            <label align="center"><input type="checkbox" name="f2t" value="f2t">La existencia de algún problema con el instrumental, los equipos y el conteo del mismo.</label><br><br><br>
+                            ['.$fase2['4_fecha_metodo'].'] La fehca y método de la esterilización del equipo y el instrumental.<br>
+                            ['.$fase2['4_problema_instrumental'].'] La existencia de algún problema con el instrumental, los equipos y el conteo del mismo.<br><br><br>
                             </td>
                         </tr>
                     </table>
                 </td>
                 <td>
-                    <table border="1" style="font-size:12px;">
+                    <table border="1" style="font-size:11.7px;">
                         <tr>
                             <td align="center">FASE 3: SALIDA<br>Antes de que el paciente salga de quirófano</td>
                         </tr>
                         <tr>
                             <td> El Cirujano responsable de la atención del paciente en presencia del Anestesiólogo y el personal de Enfermería, ha aplicado la Lista de Verificacíon de la Seguridad de la Cirugía y ha conformado verbalmente:<br>
-                                <input type="checkbox" name="f3a" value="f3a">El nombre del procedimiento realizado.<br>
-                                <input type="checkbox" name="f3b" value="f3b">El recuento COMPLETO del instrumental, gasas y agujas.<br>
-                                <label align="center"><input type="checkbox" name="f3c" value="f3c">El etiquetado de las muestras (nombre completo del paciente, fecha de nacimiento, fecha de a CIRUGÍA y descripción general).</label><br>
-                                <label align="center"><input type="checkbox" name="f3d" value="f3d">Los problemas con el instrumental y los equipos que deben ser notificados y resueltos.</label><br>
+                                ['.$fase3['1_nombre_proc'].']El nombre del procedimiento realizado.<br>
+                                ['.$fase3['1_recuento_instrumento'].']El recuento COMPLETO del instrumental, gasas y agujas.<br>
+                                <label align="center">['.$fase3['1_etiquetado_muestras'].']El etiquetado de las muestras (nombre completo del paciente, fecha de nacimiento, fecha de a CIRUGÍA y descripción general).</label><br>
+                                <label align="center">['.$fase3['1_problemas_instrumental'].'] Los problemas con el instrumental y los equipos que deben ser notificados y resueltos.</label><br>
                             </td>
                         </tr>
                         <tr>
                             <td> El Cirujano, El Anestesiólogo y el personal de Enfermería han comentado al Circulante:<br>
-                                <input type="checkbox" name="f3e" value="f3e">Los principales aspectos de la recuperación postoperatoria.<br>
-                                <input type="checkbox" name="f3f" value="f3f">El plan de tratamiento.<br>
-                                <input type="checkbox" name="f3g" value="f3g">Los riesgos del paciente.<br>
+                                ['.$fase3['2_aspectos_recuperacion'].']Los principales aspectos de la recuperación postoperatoria.<br>
+                                ['.$fase3['2_plan_tratamiento'].']El plan de tratamiento.<br>
+                                ['.$fase3['2_riesgos_paciente'].']Los riesgos del paciente.
                             </td>
                         </tr>
                         <tr>
                             <td> ¿Ocurrieron eventos adveros?<br>
-                            <input type="checkbox" name="f3h" value="f3h">No
-                            <input type="checkbox" name="f3i" value="f3i">Si<br>
+                            ['.$fase3['3_no'].'] No ,
+                            ['.$fase3['3_si'].'] Si<br>
                             ¿Se registro el eventos adverso?<br>
-                            <input type="checkbox" name="f3j" value="f3j">Si
-                            <input type="checkbox" name="f3k" value="f3k">No&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;¿Dónde? _________________________
+                            ['.$fase3['4_si'].'] Si
+                            ['.$fase3['4_no'].'] No&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;¿Dónde? _________________________
                             </td>
                         </tr>
                         <tr>
-                            <td><p align="center">LISTADO DEL PERSONAL RESPONSABLE QUE PARTICIPO EN LA APLICACION Y LLENADO DE ESTA LISTA DE VERIFICACION</p>
-                                <p align="center">CIRUJANO(S):<br>Nombre(s): _______________________________________<br>Firma: ___________________________________________</p>
-                                <p align="center">ANESTESIÓLOGOS(S):<br>Nombre(s): _______________________________________<br>Firma: ___________________________________________</p>
-                                <p align="center">PERSONAL DE ENFERMERIA(S):<br>Nombre(s): _______________________________________<br>Firma: ___________________________________________</p>
+                            <td><p align="center" >LISTADO DEL PERSONAL RESPONSABLE QUE PARTICIPO EN LA APLICACION Y LLENADO DE ESTA LISTA DE VERIFICACION</p>
+                                <p align="center">CIRUJANO(S):<br>Nombre(s): <u>'.$nota_quirofano['cirujano'].' </u><br>Firma: _________________________</p>
+                                <p align="center">ANESTESIÓLOGOS(S):<br>Nombre(s): <u>'.$nota_quirofano['anestesiologo'].' </u><br>Firma: ____________________</p>
+                                <p align="center">PERSONAL DE ENFERMERIA(S):<br>Nombre(s): <u>'.$nota_quirofano['enfermera_qca'].' </u><br>Firma: ____________________</p>
                             </td>
                         </tr>
                     </table>

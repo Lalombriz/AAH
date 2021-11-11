@@ -4,7 +4,7 @@ session_start();
 require '../db/conexion.php';
 
 
-$usuario = $_POST['usuario'];
+$usuario =strtolower($_POST['usuario']);
 // $clave = password_hash($_POST['pass'],PASSWORD_BCRYPT);
 $clave = md5($_POST['pass']);  //encriptacion por MD5
 $password = $clave;

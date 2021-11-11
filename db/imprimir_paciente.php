@@ -29,16 +29,19 @@ $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
 $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
 // set default font subsetting mode
 $pdf->setFontSubsetting(true);
-$pdf->SetFont('aefurat', '', 14, '',true);
+$pdf->SetFont('freesansi', '', 12, '',true);
 // -----------------------Contenidos------------------------
 //Datos del paciente
 $pdf->AddPage();
-$pdf->Image('../img/Logos/logo3.jpg', 20, 3, 30, 16, 'jpg', '', '', false, 150, 'R', false, false, 0, false, false, false);
+$pdf->Image('../img/Logos/logo3.jpg', 20, 3, 40, 16, 'jpg', '', '', false, 150, 'R', false, false, 0, false, false, false);
 $html='
+        <meta http-equiv=”Content-Type” content=”text/html; charset=UTF-8″ />
         <p align="right">Fecha: '.date("d-m-Y").'</p>
+        <h4 style = "text-align:center;" >HOJA DE INGRESO</h4>
+
         <h5>Nombre del paciente: <u>'.$paciente['nombre_p'].'</u></h4><br>
         <h5>Edad : <u>'.$paciente['edad'].' Años</u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sexo : <u>'.$paciente['sexo'].'</u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fecha de nacimiento : <u>'.$paciente['fecha_nacimiento'].'</u></h5><br>
-        <h5>Procedencia : <u>'.$paciente['procedencia'].'</u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No. : <u>'.$paciente['num_paciente'].'</u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Expediente: #<u>'.$paciente['exp_procedencia'].'</u></h5><br>
+        <h5>Procedencia : <u>'.$paciente['procedencia'].'</u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No. : <u>'.$paciente['num_paciente'].'</u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Expediente UNEME: #<u>'.$paciente['exp_procedencia'].'</u></h5><br>
         <table class="table" border="1" style="width:100%;">
             <tr>  
                 <td width="30%">Domicilio</td>  
@@ -69,6 +72,11 @@ $html='
                 <td width="70%">'.$paciente['parentesco'].'</td>  
             </tr>
             <tr>  
+                <td width="35%">Representante legal / Tutor</td>  
+                <td width="65%">'.$paciente['tutor'].'</td>  
+            </tr>
+           
+            <tr>  
                 <td width="30%">Domicilio</td>  
                 <td width="70%">'.$paciente['direccion_a'].'</td>  
             </tr>
@@ -95,7 +103,7 @@ $html='
         </table>
         <b><h5 align="center">AUTORIZACION DEL PROCEDIMIENTO</h5></b>
         <h6>NOMBRE DEL MEDICO QUE REALIZO EL PROCEDIMIENTO:</h6>
-        <h6>PROCEDIMIENTO REALIZADO AL PACIENTE:</h6>
+        <h6>PROCEDIMIENTO REALIZADO AL PACIENTE: '.$paciente['procedimiento'].' </h6>
         <h6>NOMBRE Y FIRMA DEL PACIENTE O FAMILIAR________________________________________________________</h6>
         <h6>
             <input type="checkbox" name="a" value="a">MEJORIA
@@ -153,7 +161,7 @@ $pdf->AddPage();
 $pdf->Image('../img/Logos/logo3.jpg', 20, 3, 30, 16, 'jpg', '', '', false, 150, 'R', false, false, 0, false, false, false);
 $html='
         <b><h4 align="center">CONSETIMIENTO INFORMADO PARA LA APLICACION DE ANESTESIA</h4></b>
-        <h6>Nombre del Paciente <u>'.$paciente['nombre_p'].'</u> , Representante Legal <u>'.$paciente['nombre_a'].'</u> Testifico que el Dr. <u>'.$paciente['medico_esp'].'</u> 
+        <h6>Nombre del Paciente <u>'.$paciente['nombre_p'].'</u> , Representante Legal [<u>'.$paciente['tutor'].'</u>] Testifico que el Dr. <u>'.$paciente['medico_esp'].'</u> 
             me ha proporcionado la siguiente informacion.
         </h6>
         <h6 align="justify" >La anestesia general: Nos permite realizar la cirugía y/o algún procedimiento que requiera anestesia sin dolor suprimiendo la consciencia, 
@@ -187,7 +195,7 @@ $html='
         </h6>
         <h5>Ensenada B.C., Fecha: '.date("d-m-Y").'</h5><br>
         <h5>Medico Anestesiólogo: <u>'.$paciente['anestesiologo'].'</u></h5><br>
-        <h5>Paciente o representante legal: ______________________________________________________ </h5><br><br>
+        <h5>Paciente o representante legal:&nbsp;&nbsp;&nbsp;<u>'.$paciente['nombre_p'].'</u></h5><br><br>
         <h5>_____________________________________&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;____________________________________</h5>
         <h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nombre y Firma del Testigo
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -203,9 +211,9 @@ $html='
         <br><h3 align = "center">CARTA DE CONSETIMIENTO VALIDAMENTE INFORMADO</h3>
         <h6>Fecha: '.date("d-m-Y").'</h6>
         <h6>Nombre del paciente: <u>'.$paciente['anestesiologo'].'</u></h6>
-        <h6>Identificado con: _____________________________________&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Numero de expediente:<u>'.$paciente['exp_procedencia'].'</u></h6>
+        <h6>Identificado con: _____________________________________&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Numero de expediente: <u>'.$paciente['exp_procedencia'].'</u></h6>
         <h6>Seguro en: '.$paciente['procedencia'].'</h6>
-        <h6>Persona responsable: ____________________________________________________________________________</h6>
+        <h6>Persona responsable:'.$paciente['nombre_a'].'</h6>
         <h6 align="justify" >Por medio de la presente y en pleno uso de mis facultades manifiesto, que he recibido a mi satisfacción información clara y suficiente para mejorar o recuperar mi salud que incluye:</h6>
         <h6 align="justify">
             <ul>

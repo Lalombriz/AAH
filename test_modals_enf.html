@@ -1,15 +1,12 @@
+<?php session_start();?>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-<?php 
-require "usuarios/verifica_sesion.php";
-?>
-<!DOCTYPE html>
-
 
 <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Sistema Hospitalario UNEME - Charts</title>
+    <title>Sistema Hospitalario UNEME</title>
     <link rel="shortcut icon" href="img/Logos/Unidad.png"/>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
@@ -25,6 +22,7 @@ require "usuarios/verifica_sesion.php";
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    
 
 </head>
 
@@ -37,7 +35,7 @@ require "usuarios/verifica_sesion.php";
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
                 <div class="sidebar-brand-icon rotate-n-15">
                     
                 </div>
@@ -49,7 +47,7 @@ require "usuarios/verifica_sesion.php";
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="enfermeros.php">
+                <a class="nav-link" href="administrativo.php">
                     <i class="fas fa-fw fa-ho fa-calendar-check"></i>
                     <span>Pacientes Vigentes</span></a>
             </li>
@@ -59,7 +57,7 @@ require "usuarios/verifica_sesion.php";
   
             <!-- Heading -->
             <div class="sidebar-heading">
-                Menu principal Enfermeria
+                Menu principal
             </div>
 
 
@@ -72,17 +70,29 @@ require "usuarios/verifica_sesion.php";
                 </a>
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Opciones Pacientes:</h6>
-                        <a class="collapse-item" href="#" data-toggle="modal" data-target="#Data_Paciente">Registrar un paciente</a>
-                        <a class="collapse-item" href="#" data-toggle="modal" data-target="#Usuarios">Crear Usuarios</a>
-                        <a class="collapse-item" href="#" data-toggle="modal" data-target="#Usuarios"></a>
-                        <a class="collapse-item" href="#" data-toggle="modal" data-target="#Usuarios"></a>
-                        <a class="collapse-item" href="#" data-toggle="modal" data-target="#Usuarios"></a>
-                        <a class="collapse-item" href="#" data-toggle="modal" data-target="#Usuarios"></a>
-                        <a class="collapse-item" href="#" data-toggle="modal" data-target="#Usuarios"></a>
+                    <div class="bg-gradient-light py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">TEST DE GUI:</h6>
+                        <a class="collapse-item" href="#" data-toggle="modal" data-target="#preparacion">HOJA DE PREPARACION</a>
+                        <a class="collapse-item" href="#" data-toggle="modal" data-target="#quirofano">HOJA DE QUIROFANO</a>
+                        <a class="collapse-item" href="#" data-toggle="modal" data-target="#recu_inmediata">HOJA DE RECU INMEDIATA</a>
+                        <a class="collapse-item" href="#" data-toggle="modal" data-target="#recu">HOJA DE RECU</a>
+                        <a class="collapse-item" href="#" data-toggle="modal" data-target="#menu">MENU REGISTRO ENF</a>
+                        <a class="collapse-item" href="#" data-toggle="modal" data-target="#menu_seguridad">SEGURIDAD DE LA CIRUGIA</a>
+                        
                     </div>
                 </div>
+
+                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                data-parent="#accordionSidebar">
+                <div class="bg-gradient-light py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">TEST DE DOCS MEDICOS:</h6>
+                    <a class="collapse-item" href="db/FORMATOS-MEDICOS/hoja_traslado.php" >HOJA DE TRASLADO</a>
+                    <a class="collapse-item" href="db/FORMATOS-MEDICOS/nota_pre-operatoria.php">NOTA PRE-OPERATORIA</a>
+                    <a class="collapse-item" href="db/FORMATOS-MEDICOS/indicaciones_medicas.php" >INDICACIONES MEDICAS</a>
+                    <a class="collapse-item" href="db/FORMATOS-MEDICOS/hoja_postoperatoria.php" >HOJA POSTOPERATORIA</a>
+                    <a class="collapse-item" href="db/FORMATOS-MEDICOS/hoja_de_alta.php" >HOJA DE ALTA</a>    
+                </div>
+            </div>
             </li>
 
             <!-- Divider -->
@@ -145,8 +155,9 @@ require "usuarios/verifica_sesion.php";
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">
-                                <?php  echo "Enfermero: ",$_SESSION['variable']; ?> </span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php  
+                                                                                                echo $_SESSION['variable']; 
+                                                                                                ?> </span>
                                 <img class="img-profile rounded-circle"
                                     src="img/undraw_profile.svg">
                             </a>
@@ -188,7 +199,7 @@ require "usuarios/verifica_sesion.php";
                         <!-- Lista de pacientes -->
                         <div style="width:100%;">
                             <div class="border shadow">
-                                <?php include_once "db/consulta_paciente_enfermero.php"; ?>
+                                <?php include_once "db/consulta_paciente.php"; ?>
                             </div>
                         </div>
                     </div>
@@ -219,216 +230,8 @@ require "usuarios/verifica_sesion.php";
         <i class="fas fa-angle-up"></i>
     </a>
 
-<!-- Logout Modal-->
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Seguro que deseas cerrar tu sesion?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Selecciona salir si estas seguro de cerrar tu sesion...</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                    <a class="btn btn-primary" href="usuarios/log_out.php">Salir</a>
-                    
-                </div>
-            </div>
-        </div>
-</div>
 
-<!-- Ajustes -->
-<div class="modal fade" id="Ajustes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Cambiar la contraseña del Usuario</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <label>Contraseña</label>
-                    <input type="password" class="form-control" id="cantidad" name="cantidad" required>
-                </div> 
-              </div>
-            <div class="modal-body">Presionar Aceptar para cambiar la contraseña del usuario</div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                <a class="btn btn-primary" href="login.php">Cambiar</a>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Detalles de una paciente -->
-<div class="modal fade" id="details"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title text-left" id="myModalLabel">Datos del paciente</h4>
-                <button type="button" class="close text-right" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            </div>
-            <div class="modal-body" id="detalle_p">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
-                <div id="results"></div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Cambio de estatus -->
-<div class="modal fade" id="modal_estatus"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title text-left" id="myModalLabel">Cambio de estatus</h4>
-                <button type="button" class="close text-right" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            </div>
-            <form action="enfermeros.php" method="POST" class="form">
-            <div class="modal-body">
-                <input type="hidden" name="estatus_id" id="estatus_id">
-                <div id="checkboxes">
-                    <ul name="select_estatus" id="select_estatus" style="list-style: none;">
-                        <li><input type="checkbox" name="e_alta" id="e_alta">Alta</li>
-                        <li><input type="checkbox" name="e_operacion" id="e_operacion">En operacion</li>
-                        <li><input type="checkbox" name="e_recuperacion" id="e_recuperacion">Recuperacion</li>
-                        <li><input type="checkbox" name="e_traslado" id="e_traslado">Traslado</li>
-                    </ul>
-                    <input type="hidden" value="0" name="selected_e" id="selected_e">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-primary estatus_btn" name="estatus_btn" type="submit">Aceptar</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
-                <div id="results"></div>
-            </div>
-            </form>
-            <?php include_once "db/cambiar_estatus.php"; ?>
-        </div>
-    </div>
-</div>
-
-<!-- Modal archivos -->
-<div class="modal fade" id="archivos"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title text-left" id="myModalLabel">Menu de Opciones del Paciente</h4>
-                <button type="button" class="close text-right" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            </div>
-            <div class="modal-body btn-group">
-                    <input type="hidden" name="imprimir_id" id="imprimir_id" value="imprimir_id">
-                    <a class="btn"  href="db/hoja_valoracion.php?" onclick="window.location=this.href+'id='+document.getElementById('imprimir_id').value; " target="_blank">Valoracion de alta recuperacion</a>
-                    <a class="btn btn_IS" href="#" data-dismiss="modal">Indicadores de seguridad</a>
-                    <a class="btn" style="color: black;" data-toggle="modal" data-target="#menu_seguridad">Lista de verificacion de la seguridad de la cirugia</a>
-                    <!--target="_blank" href="db/hoja_verificacion.php?" onclick="window.location=this.href+'id='+document.getElementById('imprimir_id').value;"-->
-                    <a class="btn" style="color: black;" data-toggle="modal" data-target="#menu" onclick="window.location+'id='+document.getElementById('imprimir_id').value;">Hoja Registro de enfermeria</a>
-                    <!--target="_blank" href="db/hoja_registro_enfermeria.php?" onclick="window.location=this.href+'id='+document.getElementById('imprimir_id').value;"-->
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Modal indicadores de la cirugia -->
-<div class="modal fade" id="modal_indicador_seguridad"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title text-left" id="myModalLabel">Indicadores de seguridad</h4>
-                <button type="button" class="close text-right" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            </div>
-            <form action="db/hoja_indicadores.php" method="POST" class="form">
-            <div class="modal-body">
-                <div class="row">  
-                    <input type="hidden" name="indicador_id" id="indicador_id" value="indicador_id"> 
-                    <div style=" margin-left: 25px;" class="col-md-5">
-                        <label>PROCEDIMIENTO QUIRURGICO</label>
-                        <input type="text" class="form-control" id="PQ" name="PQ" required>
-                        <br>
-                    </div>
-                    <div style=" margin-left: 25px;" class="col-md-5">
-                        <label>CIRUJANO</label>
-                        <input type="text" class="form-control" id="CJ" name="CJ" required>
-                        <br>
-                    </div>
-                    <div style=" margin-left: 25px;" class="col-md-5">
-                        <label>ENFERMERA CIRCULANTE</label>
-                        <input type="text" class="form-control" id="EC" name="EC" required>
-                        <br>
-                    </div>
-                    <div style=" margin-left: 25px;" class="col-md-5">
-                        <label>ENFERMERA QUIRURGICA</label>
-                        <input type="text" class="form-control" id="EQ" name="EQ" required>
-                        <br>
-                    </div>
-                    <div style=" margin-left: 25px;" class="col-md-5">
-                        <label>INFECCIONES PREVIAS</label>
-                        <input type="text" class="form-control" id="IP" name="IP" required>
-                        <br>
-                    </div>
-                    <div style=" margin-left: 25px;" class="col-md-5">
-                        <label>PACIENTE DIABETICO</label><br>
-                        <ul name="select_pd" id="select_pd" style="list-style: none;">
-                            <li><input type="checkbox" id="a" name="a">SI</li>
-                            <li><input type="checkbox" id="b" name="b">NO</li>
-                        </ul>
-                        <br>
-                    </div>
-                    <div style=" margin-left: 25px;" class="col-md-5">
-                        <label>NOMBRE ANTIBIOTICO</label>
-                        <input type="text" class="form-control" id="NA" name="NA" required>
-                        <br>
-                    </div>
-                    <div style=" margin-left: 25px;" class="col-md-5">
-                        <label>HORA ANTIBIOTICO</label>
-                        <input type="time" class="form-control" id="HA" name="HA" required>
-                        <br>
-                    </div>
-                    <div style=" margin-left: 25px;" class="col-md-5">
-                        <label>ANTISEPSIA</label>
-                        <input type="text" class="form-control" id="AS" name="AS" required>
-                        <br>
-                    </div>
-                    <div style=" margin-left: 25px;" class="col-md-5">
-                        <label>HORA ANTISEPSIA</label>
-                        <input type="time" class="form-control" id="HAS" name="HAS" required>
-                        <br>
-                    </div>
-                    <div style=" margin-left: 25px;" class="col-md-5">
-                        <label>INICIO CIRUGIA</label>
-                        <input type="time" class="form-control" id="IC" name="IC" required>
-                        <br>
-                    </div>
-                    <div style=" margin-left: 25px;" class="col-md-5">
-                        <label>TERMINA CIRUGIA</label>
-                        <input type="time" class="form-control" id="TC" name="TC" required>
-                        <br>
-                    </div>
-                    <input type="hidden" value="0" name="selected_pd" id="selected_pd">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-primary indicadores_btn" name="aceptar" type="submit">Aceptar</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
-            </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<!-- Modales de funciones de enfermeria -->
-<!-- MODAL MENU HOJAS ENFERMERIA  -->
+    <!-- MODAL MENU HOJAS ENFERMERIA  -->
 <div class="modal fade" id="menu" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sl " role="document">
         <div class="modal-content">
@@ -444,13 +247,10 @@ require "usuarios/verifica_sesion.php";
             <div class="col-sm-3 " style=" display:inline-block; text-align: center;">
                        <div  style=" display:inline-block; text-align: center; margin-top: 30px; margin-left: 150px;">
                             
-                            <input type="hidden" name="imprimir_id" id="imprimir_id" value="imprimir_id">
                             <button class="btn btn-secondary" data-toggle="modal" data-target="#preparacion" style="background-color: #ff6961;margin-bottom: 10px; color: black;" >HOJA DE PREPARACION</button>
                             <button class="btn btn-secondary" data-toggle="modal" data-target="#quirofano" style="background-color: #84b6f4;margin-bottom: 10px; color: black;">HOJA DE QUIROFANO </button>
                             <button class="btn btn-secondary" data-toggle="modal" data-target="#recu_inmediata" style="background-color: #fdfd96;margin-bottom: 10px; color: black;">HOJA DE RECUPERACION INMEDIATA</button>
-                            <button class="btn btn-secondary" data-toggle="modal" data-target="#recu" style="background-color:#ffda9e;margin-bottom: 10px; color: black;">HOJA DE RECUPERACION TARDIA</button>
-                            
-                            <a class="btn btn-secondary"  href="db/hoja_registro_enfermeria.php?" onclick="window.location=this.href+'id='+document.getElementById('imprimir_id').value;"  style="background-color:#b6ead7;margin-bottom: 10px; color: black;" target="_blank">Impresion Expediente Enfermeria</a>
+                            <button class="btn btn-secondary" data-toggle="modal" data-target="#recu" style="background-color:#ffda9e;margin-bottom: 10px; color: black;">HOJA DE RECUPERACION</button>
 
                         
             </div>   
@@ -1408,7 +1208,12 @@ require "usuarios/verifica_sesion.php";
     </div>
     </div>
 </div>
-  
+
+
+
+
+
+
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="bootstrap/js/bootstrap.bundle.min.js"></script>

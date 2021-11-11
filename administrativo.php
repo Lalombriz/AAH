@@ -1,4 +1,7 @@
-<?php session_start();?>
+<?php 
+require "usuarios/verifica_sesion.php";
+// $mysqli = new mysqli('localhost', 'root', '', 'hospital');
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -6,7 +9,7 @@
 <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Sistema Hospitalario UNEME</title>
+    <title>Sistema Hospitalario UNEME - Charts</title>
     <link rel="shortcut icon" href="img/Logos/Unidad.png"/>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
@@ -137,9 +140,8 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php  
-                                                                                                echo $_SESSION['variable']; 
-                                                                                                ?> </span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+                                <?php  echo "Recepcionista:  " , $_SESSION['variable'];?> </span>
                                 <img class="img-profile rounded-circle"
                                     src="img/undraw_profile.svg">
                             </a>
@@ -150,11 +152,11 @@
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Perfil
                                 </a>
-                                <a class="dropdown-item" href="#">
+                                <!-- <a class="dropdown-item" href="#">
                                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#Ajustes">
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Ajustes
-                                </a>
+                                </a> -->
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -175,7 +177,7 @@
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Lista de pacientes</h1>
                     </div>
-
+                    
                     <!-- Content Row -->
                     <div class="row">
                         <!-- Lista de pacientes -->
@@ -226,7 +228,7 @@
                 <div class="modal-body">Selecciona salir si estas seguro de cerrar tu sesion...</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                    <a class="btn btn-primary" href="index.php">Salir</a>
+                    <a class="btn btn-primary" href="usuarios/log_out.php">Salir</a>
                     
                 </div>
             </div>
@@ -253,7 +255,7 @@
             <div class="modal-body">Presionar Aceptar para cambiar la contraseña del usuario</div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                <a class="btn btn-primary" href="login.php">Cambiar</a>
+                <a class="btn btn-primary" href="#">Cambiar</a>
             </div>
         </div>
     </div>
@@ -262,10 +264,10 @@
 
 <!-- Registro de Usuarios -->
 <div class="modal fade" id="Usuarios" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Datos de ingreso del paciente</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Registro de Usuarios</h5>
             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">x</span>
             </button>
@@ -278,36 +280,45 @@
                     <br>
                 </div> 
 
-                <div style=" margin-left: 25px;" class="col-md-5">
-                    <label style="color: red;">Contraseña</label>
-                    <input type="password" class="form-control" id="contraseña" name="contraseña" required>
-                    <br>
-                </div> 
-
-
                 <div style=" margin-left: 25px;" class="col-md-5" >
                     <label style="color: red;">Nombre Completo</label>
                     <input type="text" class="form-control" id="nombre_doctor" name="nombre_doctor" required>
                     <br>
                 </div> 
 
+                <div style=" margin-left: 25px;" class="col-md-5">
+                    <label style="color: red;">Contraseña</label>
+                    <input type="password" class="form-control" id="contraseña" name="contraseña" required>
+                    <br>
+                </div> 
 
                 <div style=" margin-left: 25px;" class="col-md-5" >
                     <label style="color: red;">Escuela de Estudios</label>
                     <input type="text" class="form-control" id="escuela" name="escuela" required>
                     <br>
                 </div>
-            
 
+                <div style=" margin-left: 25px;" class="col-md-5" >
+                    <label style="color: red;">Profesion</label>
+                    <input type="text" class="form-control" id="prof" name="prof" >
+                    <br>
+                </div>
+            
                 <div style=" margin-left: 25px;" class="col-md-5">
                     <label style="color: red;">Cedula Profesional</label>
-                    <input type="text" class="form-control" id="cedula" name="cedula" required>
+                    <input type="text" class="form-control" id="cedula" name="cedula" >
                     <br>
                 </div>
 
                 <div style=" margin-left: 25px;" class="col-md-5">
                     <label style="color: red;">Especialidad</label>
                     <input type="text" class="form-control" id="esp" name="esp">
+                    <br>
+                </div>
+
+                <div style=" margin-left: 25px;" class="col-md-5">
+                    <label style="color: red;">Cedula Especialidad</label>
+                    <input type="text" class="form-control" id="cedula_esp" name="cedula_esp" >
                     <br>
                 </div>
             
@@ -323,7 +334,7 @@
                 </div>
 
             </div>
-            <div class="modal-body" style="text-align: center;">Precionar aceptar para ingresar al paciente</div>
+            <div class="modal-body" style="text-align: center;">Precionar aceptar para registrar el usuario</div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" name="agregar" type="submit" style="background-color: seagreen;">Agregar</button>
             </div>
@@ -335,7 +346,7 @@
 
 <!-- Registro de Pacientes -->
 <div class="modal fade" id="Data_Paciente" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Datos de ingreso del paciente</h5>
@@ -408,6 +419,7 @@
                             <option value="INSABI">INSABI</option>
                             <option value="IMSS">IMSS</option>
                             <option value="PRIVADO">PRIVADO</option>
+                            <option value="ISSSTE">ISSSTE</option>
                         </select>
                         <br>
                 </div> 
@@ -448,7 +460,10 @@
 
                 <div style=" margin-left: 25px;" class="col-md-5" >
                     <label >Medico especialista</label>
-                    <input type="text" class="form-control" id="medico" name="medico" required>
+                    <select  style="width: 400px;" id="medico" name="medico" required>
+                    <option value="0">Seleccione:</option>
+                    <?php include_once "cirugias/medicos.php"; ?>
+                    </select>
                     <br>
                 </div>
 
@@ -460,7 +475,10 @@
 
                 <div style=" margin-left: 25px;" class="col-md-5" >
                     <label >Anestesiologo</label>
-                    <input type="text" class="form-control" id="anestesiologo" name="anestesiologo" required>
+                    <select  style="width: 400px;" id="anestesiologo" name="anestesiologo" required>
+                    <option value="0">Seleccione:</option>
+                    <?php include_once "cirugias/anestesiologos.php"; ?>
+                    </select>
                     <br>
                 </div>
 
@@ -472,7 +490,11 @@
 
                 <div style=" margin-left: 25px;" class="col-md-5" >
                     <label >Procedimiento a realizar</label>
-                    <input type="text" class="form-control" id="procedimiento" name="procedimiento" required>
+                    <select  style="width: 400px;" id="procedimiento" name="procedimiento" required>
+                    <option value="0">Seleccione:</option>
+                    <?php include_once "cirugias/procedimientos.php"; ?>
+                    </select>
+                 
                     <br>
                 </div>
 

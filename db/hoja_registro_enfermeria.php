@@ -7,15 +7,40 @@ $password ='';
 $db = 'hospital';           
 $mysqli = new mysqli($host,$user,$password,$db);
 $id = $_GET['id'];
+// querys para el llenado de el expediente electronico
+// query de la cabecera del doc
 $query = "SELECT * from paciente where num_paciente = '$id'";
 $data = $mysqli->query($query);
 $paciente = $data->fetch_assoc();
+
+//query de la nota de preparacion
+$query2 = "SELECT * from nota_preparacion where no_exp = '$id'";
+$data2 = $mysqli->query($query2);
+$nota_preparacion = $data2->fetch_assoc();
+
+//query de la hora de quirofano
+$query3 = "SELECT * from nota_quirofano where no_exp = '$id'";
+$data3 = $mysqli->query($query3);
+$nota_quirofano = $data3->fetch_assoc();
+
+//query nota de recuperacion inmediata
+$query4 = "SELECT * from nota_recuperacion_inmediata where no_exp = '$id'";
+$data4 = $mysqli->query($query4);
+$nota_recuperacion_inmediata = $data4->fetch_assoc();
+
+//query nota de recuperacion
+$query5 = "SELECT * from nota_recuperacion where no_exp = '$id'";
+$data5 = $mysqli->query($query5);
+$nota_recuperacion = $data5->fetch_assoc();
+//los usuarios de las notas se jalan de las tablas por mientras, pero se usara una variable de sesion para obtener los nombres completos de los usuarios
+
+
 // create pdf
 $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 // set title
 $pdf->SetTitle(''.$paciente['nombre_p'].'');
 // set default header data
-$pdf->SetHeaderData(PDF_HEADER_LOGO, '45');
+//$pdf->SetHeaderData(PDF_HEADER_LOGO, '45');
 // set header fonts
 $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
 // set default monospaced font
@@ -29,17 +54,19 @@ $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
 $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
 // set default font subsetting mode
 $pdf->setFontSubsetting(true);
-$pdf->SetFont('aefurat', '', 14, '',true);
+$pdf->SetFont('freesansi', '', 12, '',true);
 // -----------------------Contenidos------------------------
 //HOJA DE REGISTRO DE ENFERMERIA
 $pdf->AddPage();
-$pdf->Image('../img/Logos/logo3.jpg', 20, 3, 30, 16, 'jpg', '', '', false, 150, 'R', false, false, 0, false, false, false);
+$pdf->Image('../img/Logos/logo3.jpg', 20, 16, 40, 13, 'jpg', '', '', false, 150, 'R', false, false, 0, false, false, false);
+$pdf->Image('../img/Logos/logo1.jpg', 20, 16, 50, 13, 'jpg', '', '', false, 150, 'L', false, false, 0, false, false, false);
 $html='
         <b><h3 align="center">HOJA DE REGISTRO DE ENFERMERIA</h3></b>
         <table class="table" border="1" style="width:100%;font-size:13px;">
             <tr>  
-                <td width="70%">Paciente: '.$paciente["nombre_p"].'</td>  
-                <td width="30%">Hora Ingreso: <input align="center" type="text" name="hora" size="9"></td>  
+                <td width="60%">Paciente: '.$paciente["nombre_p"].'</td>  
+                <td width="20%">Hora Ingreso:XXXX</td>  
+                <td width="20%">Fecha de nacimiento: XXXX</td>
             </tr>
             <tr>  
                 <td width="20%">Edad: '.$paciente["edad"].'</td>  
@@ -51,61 +78,68 @@ $html='
         <br><h5 align="center">PREPARACION</h5>
         <table class="table" border="1" style="width:100%;font-size:13px;">
             <tr>  
-                <td width="20%">TEM. <input align="center" type="text" name="tem" size="13"></td>
-                <td width="20%">FC. <input align="center" type="text" name="fc" size="15"></td> 
-                <td width="20%">FR. <input align="center" type="text" name="fr" size="15"></td> 
-                <td width="20%">T/A <input align="center" type="text" name="ta" size="14"></td> 
-                <td width="20%">DXTX. <input align="center" type="text" name="dxtx" size="12"></td> 
+                <td style ="font-size:12px;" width="16.66%">TEMP. '.$nota_preparacion["temp"].'</td>
+                <td style ="font-size:12px;" width="16.66%">FC. '.$nota_preparacion["fc"].'</td> 
+                <td style ="font-size:12px;" width="16.66%">FR. '.$nota_preparacion["fr"].'</td> 
+                <td style ="font-size:12px;" width="16.66%">T/A. '.$nota_preparacion["t/a"].'</td> 
+                <td style ="font-size:12px;" width="16.66%">DXTX. '.$nota_preparacion["dxtx"].'</td> 
+                <td style ="font-size:12px;" width="16.66%"> SAT O2. '.$nota_preparacion["dxtx"].'</td>
             </tr>
             <tr>  
-                <td width="100%">Medicamentos: <input align="center" type="text" name="medicamentos" size="83"></td>
+                <td style ="font-size:12px;" width="100%">Medicamentos: '.$nota_preparacion["medicamento"].'</td>
             </tr>
             <tr>  
-                <td width="100%">Solucion: <input align="center" type="text" name="solucion" size="88"></td>
+                <td style ="font-size:12px;" width="100%">Solucion: '.$nota_preparacion["solucion"].'</td>
             </tr>
         </table>
         <br><h5 align="left">REPORTE DE ENFERMERIA:</h5>
         <table class="table" border="1" style="width:100%;font-size:13px;">
             <tr>
-                <td>AYUNO: <input align="center" type="text" name="ayuno" size="23"></td>
-                <td>CX: <input align="center" type="text" name="cx" size="27"></td>
-                <td align="center" rowspan="4" style="font-size:10px;"><br><br><br><br>_________________________________<br>ENFERMERA</td>
+                <td style ="font-size:12px;">AYUNO: '.$nota_preparacion["ayuno"].'</td>
+                <td style ="font-size:12px;">CX: '.$nota_preparacion["cx"].'</td>
+                <td align="center" rowspan="4" style="font-size:12px;"><u>'.$nota_preparacion["usuario"].'</u><br>CEDULA:[1597536]<br>ENFERMERA</td>
             </tr>
             <tr>
-                <td>ALERGIAS: <input align="center" type="text" name="alergias" size="20"></td>
-                <td>TRANSF:<input align="center" type="text" name="transf" size="23"></td>
+                <td style ="font-size:12px;">ALERGIAS: '.$nota_preparacion["alergias"].'</td>
+                <td style ="font-size:12px;">TRANSF:'.$nota_preparacion["transf"].'</td>
             </tr>
             <tr>
-                <td>TOXICO: <input align="center" type="text" name="toxico" size="22"></td>
-                <td>PROTESIS:<input align="center" type="text" name="protesis" size="21"></td>
+                <td style ="font-size:12px;">TOXICO: '.$nota_preparacion["toxico"].'</td>
+                <td style ="font-size:12px;">PROTESIS:'.$nota_preparacion["protesis"].' </td>
             </tr>
             <tr>
-                <td>ENF-CRONICA: <input align="center" type="text" name="enf" size="17"></td>
-                <td>MEDICAMENTO: <input align="center" type="text" name="medicamento" size="15"></td>
+                <td style ="font-size:12px;">ENF-CRONICA: '.$nota_preparacion["enfermedad_cronica"].'</td>
+                <td style ="font-size:12px;">MEDICAMENTO: '.$nota_preparacion["medicamento_2"].'</td>
             </tr>
         </table>
         <br><h5 align="center">QUIROFANO</h5>
         <table class="table" border="1" style="width:100%;font-size:13px;">
             <tr>  
-                <td width="50%">CIRUJANO: <input align="center" type="text" name="cirujano" size="36"></td>
-                <td width="50%">AYUDANTE: <input align="center" type="text" name="ayudante" size="35"></td> 
+                <td width="50%" style ="font-size:12px;">CIRUJANO: '.$nota_quirofano["cirujano"].'</td>
+                <td width="50%" style ="font-size:12px;">AYUDANTE: '.$nota_quirofano["ayudante"].'</td> 
             </tr>
             <tr>  
-                <td width="50%">ANESTESIOLOGO: <input align="center" type="text" name="anestesiologo" size="30"></td>
-                <td width="50%">TIPO ANESTESIA: <input align="center" type="text" name="tipo_anest" size="30"></td> 
+                <td width="50%" style ="font-size:12px;">ANESTESIOLOGO: '.$nota_quirofano["anestesiologo"].'</td>
+                <td width="50%" style ="font-size:12px;">TIPO ANESTESIA: '.$nota_quirofano["tipo_anestesia"].'</td> 
+            </tr>
+            <tr> 
+                <td width="50%" style ="font-size:12px;">DIAGNOSTICO: '.$nota_quirofano["diagnostico"].'</td> 
+                <td width="50%" style ="font-size:12px;">Cx. Realizada: '.$nota_quirofano["cx_realizada"].'</td> 
             </tr>
             <tr>  
-                <td width="50%">ENFERMERIA Qca: <input align="center" type="text" name="enfermeria_qca" size="30"></td>
-                <td width="50%">Cx. Realizada: <input align="center" type="text" name="cx_r" size="35"></td> 
+            <td width="50%" style ="font-size:12px;">ENFERMERA Qca: '.$nota_quirofano["enfermera_qca"].'</td>
+                <td width="50%" style ="font-size:12px;">CIRCULANTE: '.$nota_quirofano["circulante"].'</td> 
             </tr>
             <tr>  
-                <td width="50%">DIAGNOSTICO: <input align="center" type="text" name="diagnostico" size="32"></td>
-                <td width="50%">CIRCULANTE: <input align="center" type="text" name="circulante" size="34" style="border-width:0px;
-                border:none;"></td> 
+                <td width="25%" style ="font-size:12px;">HORA DE INGRESO: '.$nota_quirofano["hora_ingreso"].'</td>
+                <td width="25%" style ="font-size:12px;">INICIO: '.$nota_quirofano["inicio"].'</td>
+                <td width="25%">TERMINA: '.$nota_quirofano["termina"].'</td>
+            <td width="25%">EGRESA: '.$nota_quirofano["egresa"].'</td>
             </tr>
+
         </table>
-        <br><h5 align="left">REPORTE DE ENFERMERIA TRANSOPERATORIO:</h5><br><br><br><br><br>
-        <textarea class="notes" name="reporte" cols="97" rows="8" style="width:100%;font-size:13px;"></textarea><br><br><br><br><br><br>
+        <br><h5 align="left">REPORTE DE ENFERMERIA TRANSOPERATORIO:</h5>
+        <p align="justify" style ="font-size:12px;">'.$nota_quirofano["reporte_enfermeria"].'</p>
         <h5 align="center">INGRESOS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -118,28 +152,28 @@ $html='
                 <td width="25%" align="center">SANGRADO</td>  
             </tr>
             <tr>  
-                <td width="25%">&nbsp;<input align="center" type="text" name="m1" size="22"></td>
-                <td width="25%">&nbsp;<input align="center" type="text" name="s1" size="22"></td>
-                <td width="25%">&nbsp;<input align="center" type="text" name="d1" size="22"></td> 
-                <td width="25%">&nbsp;<input align="center" type="text" name="g1" size="22"></td> 
+                <td width="25%">&nbsp;'.$nota_quirofano["med1"].'</td>
+                <td width="25%">&nbsp;'.$nota_quirofano["solucion1"].'</td>
+                <td width="25%">&nbsp;'.$nota_quirofano["diuresis1"].'</td> 
+                <td width="25%">&nbsp;'.$nota_quirofano["sangrado1"].'</td> 
             </tr>
             <tr>  
-                <td width="25%">&nbsp;<input align="center" type="text" name="m2" size="22"></td>
-                <td width="25%">&nbsp;<input align="center" type="text" name="s2" size="22"></td>
-                <td width="25%">&nbsp;<input align="center" type="text" name="d2" size="22"></td> 
-                <td width="25%">&nbsp;<input align="center" type="text" name="g2" size="22"></td> 
+                <td width="25%">&nbsp;'.$nota_quirofano["med2"].'</td>
+                <td width="25%">&nbsp;'.$nota_quirofano["solucion2"].'</td>
+                <td width="25%">&nbsp;'.$nota_quirofano["diuresis2"].'</td> 
+                <td width="25%">&nbsp;'.$nota_quirofano["sangrado2"].'</td> 
             </tr>
             <tr>  
-                <td width="25%">&nbsp;<input align="center" type="text" name="m3" size="22"></td>
-                <td width="25%">&nbsp;<input align="center" type="text" name="s3" size="22"></td>
-                <td width="25%">&nbsp;<input align="center" type="text" name="d3" size="22"></td> 
-                <td width="25%">&nbsp;<input align="center" type="text" name="g3" size="22"></td>  
+                <td width="25%">&nbsp;'.$nota_quirofano["med3"].'</td>
+                <td width="25%">&nbsp;'.$nota_quirofano["solucion3"].'</td>
+                <td width="25%">&nbsp;'.$nota_quirofano["diuresis3"].'</td> 
+                <td width="25%">&nbsp;'.$nota_quirofano["sangrado3"].'</td>  
             </tr>
             <tr>  
-                <td width="25%">&nbsp;<input align="center" type="text" name="m4" size="22"></td>
-                <td width="25%">&nbsp;<input align="center" type="text" name="s4" size="22"></td>
-                <td width="25%">&nbsp;<input align="center" type="text" name="d4" size="22"></td> 
-                <td width="25%">&nbsp;<input align="center" type="text" name="g4" size="22"></td>  
+                <td width="25%">&nbsp;'.$nota_quirofano["med4"].'</td>
+                <td width="25%">&nbsp;'.$nota_quirofano["solucion4"].'</td>
+                <td width="25%">&nbsp;'.$nota_quirofano["diuresis4"].'</td> 
+                <td width="25%">&nbsp;'.$nota_quirofano["sangrado4"].'</td>  
             </tr>
         </table>
         <br><h5 align="left">CUENTA COMPLETA:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -148,28 +182,29 @@ $html='
         <table class="table" border="1" style="width:100%;font-size:13px;">
             <tr>
                 <td>GASAS</td>
-                <td width="20%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="gasas1" value="a"></td>
-                <td width="20%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="gasas2" value="a"></td>
-                <td align="center" rowspan="3" style="font-size:10px;" width="35%"><br><br><br>_________________________________<br>ENFERMERA</td>
+                <td width="20%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$nota_quirofano["gasa_si"].'</td>
+                <td width="20%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$nota_quirofano["gasa_no"].'</td>
+                <td align="center" rowspan="3" style="font-size:12px;" width="35%"><u>'.$nota_quirofano["usuario"].'</u> <br>CEDULA:[222222222]<br>ENFERMERA</td>
             </tr>
             <tr>
                 <td>COMPRESAS</td>
-                <td width="20%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="compresas1" value="a"></td>
-                <td width="20%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="compresas2" value="a"></td>
+                <td width="20%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$nota_quirofano["compresas_si"].'</td>
+                <td width="20%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$nota_quirofano["compresas_no"].'</td>
             </tr>
             <tr>
                 <td>OTROS</td>
-                <td width="20%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="otros1" value="a"></td>
-                <td width="20%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="otros2" value="a"></td>
+                <td width="20%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$nota_quirofano["otros_si"].'</td>
+                <td width="20%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$nota_quirofano["otros_no"].'</td>
             </tr>
         </table>
     ';
 $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
 // PAGINA 2
 $pdf->AddPage();
-$pdf->Image('../img/Logos/logo3.jpg', 20, 3, 30, 16, 'jpg', '', '', false, 150, 'R', false, false, 0, false, false, false);
+$pdf->Image('../img/Logos/logo3.jpg', 20, 16, 40, 13, 'jpg', '', '', false, 150, 'R', false, false, 0, false, false, false);
+$pdf->Image('../img/Logos/logo1.jpg', 20, 16, 50, 13, 'jpg', '', '', false, 150, 'L', false, false, 0, false, false, false);
 $html='
-        <h3 align="center">HOJA DE REGISTRO DE ENFERMERIA</h3><
+        <br><h3 align="center">HOJA DE REGISTRO DE ENFERMERIA</h3><
         <b><h5 align="center">RECUPERACION INMEDIATA</h5></b><br>
         <table class="table" border="1" style="width:100%;font-size:13px;">
             <tr>  
@@ -182,82 +217,82 @@ $html='
                 <td width="40%" align="center">MEDICAMENTOS</td>  
             </tr>
             <tr>  
-                <td width="10%">&nbsp;<input align="center" type="text" name="hora1" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="ta1" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="fr1" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="fc1" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="to1" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="sat1" size="8"></td>
-                <td width="40%">&nbsp;<input align="center" type="text" name="med1" size="36"></td>
+                <td width="10%">&nbsp;'.$nota_recuperacion_inmediata["hr1"]. '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion_inmediata["ta1"]. '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion_inmediata["fr1"]. '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion_inmediata["fc1"]. '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion_inmediata["t1"].  '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion_inmediata["sat1"].'</td>
+                <td width="40%">&nbsp;'.$nota_recuperacion_inmediata["med1"].'</td>
             </tr>
             <tr>  
-                <td width="10%">&nbsp;<input align="center" type="text" name="hora2" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="ta2" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="fr2" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="fc2" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="to2" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="sat2" size="8"></td>
-                <td width="40%">&nbsp;<input align="center" type="text" name="med2" size="36"></td>  
+                <td width="10%">&nbsp;'.$nota_recuperacion_inmediata["hr2"]. '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion_inmediata["ta2"]. '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion_inmediata["fr2"]. '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion_inmediata["fc2"]. '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion_inmediata["t2"].  '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion_inmediata["sat2"].'</td>
+                <td width="40%">&nbsp;'.$nota_recuperacion_inmediata["med2"].'</td>  
             </tr>
             <tr>  
-                <td width="10%">&nbsp;<input align="center" type="text" name="hora3" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="ta3" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="fr3" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="fc3" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="to3" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="sat3" size="8"></td>
-                <td width="40%">&nbsp;<input align="center" type="text" name="med3" size="36"></td>  
+                <td width="10%">&nbsp;'.$nota_recuperacion_inmediata["hr3"]. '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion_inmediata["ta3"]. '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion_inmediata["fr3"]. '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion_inmediata["fc3"]. '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion_inmediata["t3"].  '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion_inmediata["sat3"].'</td>
+                <td width="40%">&nbsp;'.$nota_recuperacion_inmediata["med3"].'</td>  
             </tr>
             <tr>  
-                <td width="10%">&nbsp;<input align="center" type="text" name="hora4" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="ta4" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="fr4" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="fc4" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="to4" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="sat4" size="8"></td>
-                <td width="40%">&nbsp;<input align="center" type="text" name="med4" size="36"></td>
+                <td width="10%">&nbsp;'.$nota_recuperacion_inmediata["hr4"]. '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion_inmediata["ta4"]. '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion_inmediata["fr4"]. '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion_inmediata["fc4"]. '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion_inmediata["t4"].  '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion_inmediata["sat4"].'</td>
+                <td width="40%">&nbsp;'.$nota_recuperacion_inmediata["med4"].'</td>
             </tr>
             <tr>  
-                <td width="10%">&nbsp;<input align="center" type="text" name="hora5" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="ta5" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="fr5" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="fc5" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="to5" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="sat5" size="8"></td>
-                <td width="40%">&nbsp;<input align="center" type="text" name="med5" size="36"></td>
+                <td width="10%">&nbsp;'.$nota_recuperacion_inmediata["hr5"]. '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion_inmediata["ta5"]. '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion_inmediata["fr5"]. '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion_inmediata["fc5"]. '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion_inmediata["t5"].  '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion_inmediata["sat5"].'</td>
+                <td width="40%">&nbsp;'.$nota_recuperacion_inmediata["med5"].'</td>
             </tr>
             <tr>  
-                <td width="10%">&nbsp;<input align="center" type="text" name="hora6" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="ta6" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="fr6" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="fc6" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="to6" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="sat6" size="8"></td>
-                <td width="40%">&nbsp;<input align="center" type="text" name="med6" size="36"></td>  
+                <td width="10%">&nbsp;'.$nota_recuperacion_inmediata["hr6"]. '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion_inmediata["ta6"]. '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion_inmediata["fr6"]. '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion_inmediata["fc6"]. '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion_inmediata["t6"].  '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion_inmediata["sat6"].'</td>
+                <td width="40%">&nbsp;'.$nota_recuperacion_inmediata["med6"].'</td>  
             </tr>
         </table>
-        <br><h5 align="left">REPORTE DE ENFERMERIA:</h5><br><br><br><br><br>
-        <textarea class="notes" name="reporte_ri" cols="97" rows="5" style="width:100%;font-size:13px;" border="1"></textarea><br><br><br><br>
+        <br><h5 align="left">REPORTE DE ENFERMERIA:</h5>
+        <p style = "text-aling:justify; font-size:9px;">'.$nota_recuperacion_inmediata["reporte_enfermeria_1"].'</p>
         <h5 align="left">EGRESOS:</h5><br><br><br><br><br>
         <table class="table" border="1" style="width:100%;font-size:13px;">
             <tr>
                 <td width="15%">SANGRADO</td>
-                <td width="15%"></td>
-                <td width="15%"></td>
-                <td width="15%"></td>
-                <td align="center" rowspan="3" style="font-size:10px;" width="40%"><br><br><br>_________________________________<br>ENFERMERA</td>
+                <td width="15%">'.$nota_recuperacion_inmediata["sangrado1"].'</td>
+                <td width="15%">'.$nota_recuperacion_inmediata["sangrado2"].'</td>
+                <td width="15%">'.$nota_recuperacion_inmediata["sangrado3"].'</td>
+                <td align="center" rowspan="3" style="font-size:12px;" width="40%"><u>'.$nota_recuperacion_inmediata["usuario"].'</u><br>CEDULA:[8523653]<br>ENFERMERA</td>
             </tr>
             <tr>
                 <td width="15%">DIURESIS</td>
-                <td width="15%"></td>
-                <td width="15%"></td>
-                <td width="15%"></td>
+                <td width="15%">'.$nota_recuperacion_inmediata["diuresis1"].'</td>
+                <td width="15%">'.$nota_recuperacion_inmediata["diuresis2"].'</td>
+                <td width="15%">'.$nota_recuperacion_inmediata["diuresis3"].'</td>
             </tr>
             <tr>
                 <td width="15%">EMESIS</td>
-                <td width="15%"></td>
-                <td width="15%"></td>
-                <td width="15%"></td>
+                <td width="15%">'.$nota_recuperacion_inmediata["emesis1"].'</td>
+                <td width="15%">'.$nota_recuperacion_inmediata["emesis2"].'</td>
+                <td width="15%">'.$nota_recuperacion_inmediata["emesis3"].'</td>
             </tr>
         </table>
         <h5 align="center">RECUPERACION</h5>
@@ -273,85 +308,85 @@ $html='
                 <td width="40%" align="center">MEDICAMENTOS</td>  
             </tr>
             <tr>  
-                <td width="10%">&nbsp;<input align="center" type="text" name="hora1" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="ta1" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="fr1" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="fc1" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="to1" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="sat1" size="8"></td>
-                <td width="40%">&nbsp;<input align="center" type="text" name="med1" size="36"></td>
+                <td width="10%">&nbsp;'.$nota_recuperacion["hr1"]. '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion["ta1"]. '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion["fr1"]. '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion["fc1"]. '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion["t1"].  '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion["sat1"].'</td>
+                <td width="40%">&nbsp;'.$nota_recuperacion["med1"].'</td>
             </tr>
             <tr>  
-                <td width="10%">&nbsp;<input align="center" type="text" name="hora2" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="ta2" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="fr2" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="fc2" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="to2" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="sat2" size="8"></td>
-                <td width="40%">&nbsp;<input align="center" type="text" name="med2" size="36"></td>  
+                <td width="10%">&nbsp;'.$nota_recuperacion["hr2"]. '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion["ta2"]. '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion["fr2"]. '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion["fc2"]. '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion["t2"].  '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion["sat2"].'</td>
+                <td width="40%">&nbsp;'.$nota_recuperacion["med2"].'</td>  
             </tr>
             <tr>  
-                <td width="10%">&nbsp;<input align="center" type="text" name="hora3" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="ta3" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="fr3" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="fc3" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="to3" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="sat3" size="8"></td>
-                <td width="40%">&nbsp;<input align="center" type="text" name="med3" size="36"></td>  
+                <td width="10%">&nbsp;'.$nota_recuperacion["hr3"]. '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion["ta3"]. '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion["fr3"]. '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion["fc3"]. '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion["t3"].  '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion["sat3"].'</td>
+                <td width="40%">&nbsp;'.$nota_recuperacion["med3"].'</td>  
             </tr>
             <tr>  
-                <td width="10%">&nbsp;<input align="center" type="text" name="hora4" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="ta4" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="fr4" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="fc4" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="to4" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="sat4" size="8"></td>
-                <td width="40%">&nbsp;<input align="center" type="text" name="med4" size="36"></td>
+                <td width="10%">&nbsp;'.$nota_recuperacion["hr4"]. '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion["ta4"]. '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion["fr4"]. '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion["fc4"]. '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion["t4"].  '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion["sat4"].'</td>
+                <td width="40%">&nbsp;'.$nota_recuperacion["med4"].'</td>
             </tr>
             <tr>  
-                <td width="10%">&nbsp;<input align="center" type="text" name="hora5" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="ta5" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="fr5" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="fc5" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="to5" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="sat5" size="8"></td>
-                <td width="40%">&nbsp;<input align="center" type="text" name="med5" size="36"></td>
+                <td width="10%">&nbsp;'.$nota_recuperacion["hr5"]. '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion["ta5"]. '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion["fr5"]. '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion["fc5"]. '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion["t5"].  '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion["sat5"].'</td>
+                <td width="40%">&nbsp;'.$nota_recuperacion["med5"].'</td>
             </tr>
             <tr>  
-                <td width="10%">&nbsp;<input align="center" type="text" name="hora6" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="ta6" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="fr6" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="fc6" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="to6" size="8"></td>
-                <td width="10%">&nbsp;<input align="center" type="text" name="sat6" size="8"></td>
-                <td width="40%">&nbsp;<input align="center" type="text" name="med6" size="36"></td>  
+                <td width="10%">&nbsp;'.$nota_recuperacion["hr6"]. '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion["ta6"]. '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion["fr6"]. '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion["fc6"]. '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion["t6"].  '</td>
+                <td width="10%">&nbsp;'.$nota_recuperacion["sat6"].'</td>
+                <td width="40%">&nbsp;'.$nota_recuperacion["med6"].'</td>  
             </tr>
         </table>
-        <br><h5 align="left">REPORTE DE ENFERMERIA:</h5><br><br><br><br><br>
-        <textarea class="notes" name="reporte_ri" cols="97" rows="5" style="width:100%;font-size:13px;"></textarea><br><br><br><br>
+        <br><h5 align="left">REPORTE DE ENFERMERIA:</h5>
+        <p style = "text-aling:justify; font-size:9px;">'.$nota_recuperacion["reporte_recuperacion"].'</p>
         <h5 align="left">EGRESOS:</h5><br><br><br><br><br>
         <table class="table" border="1" style="width:100%;font-size:13px;">
             <tr>
                 <td width="15%">SANGRADO</td>
-                <td width="15%"></td>
-                <td width="15%"></td>
-                <td width="15%"></td>
-                <td align="center" rowspan="3" style="font-size:10px;" width="40%"><br><br><br>_________________________________<br>ENFERMERA</td>
+                <td width="15%">'.$nota_recuperacion["sangrado1"].'</td>
+                <td width="15%">'.$nota_recuperacion["sangrado2"].'</td>
+                <td width="15%">'.$nota_recuperacion["sangrado3"].'</td>
+                <td align="center" rowspan="3" style="font-size:12px;" width="40%"><u>'.$nota_recuperacion["usuario"].'</u><br>CEDULA:[1227565]<br>ENFERMERA</td>
             </tr>
             <tr>
                 <td width="15%">DIURESIS</td>
-                <td width="15%"></td>
-                <td width="15%"></td>
-                <td width="15%"></td>
+                <td width="15%">'.$nota_recuperacion["diuresis1"].'</td>
+                <td width="15%">'.$nota_recuperacion["diuresis2"].'</td>
+                <td width="15%">'.$nota_recuperacion["diuresis3"].'</td>
             </tr>
             <tr>
                 <td width="15%">EMESIS</td>
-                <td width="15%"></td>
-                <td width="15%"></td>
-                <td width="15%"></td>
+                <td width="15%">'.$nota_recuperacion["emesis1"].'</td>
+                <td width="15%">'.$nota_recuperacion["emesis2"].'</td>
+                <td width="15%">'.$nota_recuperacion["emesis3"].'</td>
             </tr>
         </table>
-        <h5 align="left">HORA DE EGRESO: <input align="center" type="text" name="hora_egreso" size="8"></h5>
+        <h5 align="left">HORA DE EGRESO: ['.date("H:m:s").']</h5>
     ';
 $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
 // Close and output PDF document

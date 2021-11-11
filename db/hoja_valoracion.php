@@ -10,12 +10,16 @@ $id = $_GET['id'];
 $query = "SELECT * from paciente where num_paciente = '$id'";
 $data = $mysqli->query($query);
 $paciente = $data->fetch_assoc();
+
+$query2 = "SELECT * from hoja_valoracion where no_exp = '$id'";
+$data2 = $mysqli->query($query2);
+$hoja_valoracion = $data2->fetch_assoc();
 // create pdf
 $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 // set title
-$pdf->SetTitle(''.$paciente['nombre_p'].'');
+$pdf->SetTitle('VALORACION DE ALTA DE RECU');
 // set default header data
-$pdf->SetHeaderData(PDF_HEADER_LOGO, '45');
+//$pdf->SetHeaderData(PDF_HEADER_LOGO, '45');
 // set header fonts
 $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
 // set default monospaced font
@@ -29,11 +33,12 @@ $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
 $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
 // set default font subsetting mode
 $pdf->setFontSubsetting(true);
-$pdf->SetFont('aefurat', '', 14, '',true);
+$pdf->SetFont('freesansi', '', 10.5, '',true);
 // -----------------------Contenidos------------------------
 // VALORACION DE ALTA DE RECUPERACION
 $pdf->AddPage('L');
-$pdf->Image('../img/Logos/logo3.jpg', 20, 3, 30, 16, 'jpg', '', '', false, 150, 'R', false, false, 0, false, false, false);
+$pdf->Image('../img/Logos/logo3.jpg', 20, 16, 40, 13, 'jpg', '', '', false, 150, 'R', false, false, 0, false, false, false);
+$pdf->Image('../img/Logos/logo1.jpg', 20, 16, 50, 13, 'jpg', '', '', false, 150, 'L', false, false, 0, false, false, false);
 $html=' <style>
             .v_border table {
                 border-collapse: collapse;
@@ -48,11 +53,11 @@ $html=' <style>
         </style>
         <h3 align="center">VALORACION DE ALTA DE RECUPERACION</h3>
         <h4 align="left">Nombre del paciente: <u>'.$paciente['nombre_p'].'</u></h3>
-        <h4 align="left">Hora en que llega a recuperación: ___________________________</h3>
+        <h4 align="left">Hora en que llega a recuperación: <u>'.$hoja_valoracion["hora_recu"].'</u></h3>
         <table>
             <tr>
                 <td>
-                    <table border="0" style="width:100%;font-size:14px;">
+                    <table border="0" style="width:100%;font-size:13px;">
                         <tr> 
                             <td style="font-size:18px;">SIGNOS VITALES</td>    
                         </tr>
@@ -124,12 +129,12 @@ $html=' <style>
                 <td>
                     <table table class="v_border" border="1" style="width:100%;font-size:14px;">
                         <tr style="font-size:18px;">
-                            <td align="center"><u>&nbsp;&nbsp;&nbsp;0 HRS&nbsp;&nbsp;&nbsp;</u></td>  
-                            <td align="center"><u>&nbsp;&nbsp;&nbsp;1 HRS&nbsp;&nbsp;&nbsp;</u></td>  
-                            <td align="center"><u>&nbsp;&nbsp;&nbsp;2 HRS&nbsp;&nbsp;&nbsp;</u></td>  
-                            <td align="center"><u>&nbsp;&nbsp;&nbsp;3 HRS&nbsp;&nbsp;&nbsp;</u></td>  
-                            <td align="center"><u>&nbsp;&nbsp;&nbsp;6 HRS&nbsp;&nbsp;&nbsp;</u></td>  
-                            <td align="center"><u>&nbsp;&nbsp;&nbsp;8 HRS&nbsp;&nbsp;&nbsp;</u></td>
+                            <td border="2" align="center">0 HRS</td>  
+                            <td border="2" align="center">1 HRS</td>  
+                            <td border="2" align="center">2 HRS</td>  
+                            <td border="2" align="center">3 HRS</td>  
+                            <td border="2" align="center">6 HRS</td>  
+                            <td border="2" align="center">8 HRS</td>
                         </tr>
                         <tr>
                             <td align="center">2</td>  

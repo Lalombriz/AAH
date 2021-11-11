@@ -44,4 +44,5 @@
     }
 
     $mysqli->close();
+
 ?>

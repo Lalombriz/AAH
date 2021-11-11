@@ -28,10 +28,6 @@
                         <td width="70%">'.$paciente["nombre_p"].'</td>  
                     </tr>
                     <tr>  
-                        <td width="30%"><label>Nombre:</label></td>  
-                        <td width="70%">'.$paciente["CURP"].'</td>  
-                    </tr>
-                    <tr>  
                         <td width="30%"><label>Sexo</label></td>  
                         <td width="70%">'.$paciente["sexo"].'</td>  
                     </tr>
